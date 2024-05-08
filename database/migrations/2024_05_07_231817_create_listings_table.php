@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('experience_level');
+            $table->string('location');
+            $table->string('role_level');
+            $table->string('contract_type');
             $table->longText('requirement');
             $table->string('status');
             $table->date('due_date');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->foreignId('logo_id')->constrained()->onDelete('cascade');     
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');    
             $table->timestamps();
         });
     }
