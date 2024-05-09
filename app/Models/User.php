@@ -22,6 +22,16 @@ class User extends Authenticatable
         'password',
     ];
 
+    
+    public function Listing() 
+    {
+        return $this->hasMany(Listing::class);
+    }
+    public function Application() 
+    {
+        return $this->hasMany(Application::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -30,6 +40,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'usertype'
     ];
 
     /**
