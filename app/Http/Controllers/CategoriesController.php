@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categories;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -12,7 +12,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Categories::all();
+        return view('admin.categories', compact('categories'));
     }
 
     /**
@@ -34,7 +35,7 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(categories $categories)
+    public function show(Categories $categories)
     {
         //
     }
@@ -42,7 +43,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(categories $categories)
+    public function edit(Categories $categories)
     {
         //
     }
@@ -50,7 +51,7 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, categories $categories)
+    public function update(Request $request, Categories $categories)
     {
         //
     }
@@ -58,7 +59,7 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(categories $categories)
+    public function destroy(Categories $categories)
     {
         //
     }

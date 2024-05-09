@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\application;
+use App\Models\Application;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -34,7 +34,7 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(application $application)
+    public function show(Application $application)
     {
         //
     }
@@ -42,7 +42,7 @@ class ApplicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(application $application)
+    public function edit(Application $application)
     {
         //
     }
@@ -50,7 +50,7 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, application $application)
+    public function update(Request $request, Application $application)
     {
         //
     }
@@ -58,7 +58,7 @@ class ApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(application $application)
+    public function destroy(Application $application)
     {
         //
     }
