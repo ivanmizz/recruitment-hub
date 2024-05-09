@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Categories;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\Application;
 
 class Listing extends Model
 {

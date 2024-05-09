@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('logo');
-            $table->foreignId('categories_id')->constrained()->onDelete('cascade');
+            $table->string('logo')->nullable();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('location');
             $table->timestamps();
         });
