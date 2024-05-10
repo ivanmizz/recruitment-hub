@@ -2,6 +2,16 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+         {{-- Sign up as a..( recruiter or job seeker) --}}
+         <div>
+            <x-input-label for="usertype" :value="__('Sign up as a')" />
+            <select id="usertype" class="block mt-1 w-full" type="text" name="usertype" :value="old('usertype')" >
+                <option value="cnd">Job Seeker</option>
+                <option value="rec" name="rec">Recruiter</option>
+            </select>
+            <x-input-error :messages="$errors->get('usertype')" class="mt-2" />
+        </div>
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -15,6 +25,19 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+
+       
+        {{-- <div>
+            <label for="department"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                department</label>
+            <select id="department" name="department"
+                class="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @foreach ($departmentList as $department)
+                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                @endforeach
+            </select>
+        </div> --}}
 
         <!-- Password -->
         <div class="mt-4">
