@@ -4,7 +4,7 @@
 
          {{-- Sign up as a..( recruiter or job seeker) --}}
          <div>
-            <x-input-label for="usertype" :value="__('Sign up as a')" />
+            <x-input-label for="usertype" :value="__('Register as a')" />
             <select id="usertype" class="block mt-1 w-full" type="text" name="usertype" :value="old('usertype')" >
                 <option value="cnd">Job Seeker</option>
                 <option value="rec" name="rec">Recruiter</option>
@@ -62,14 +62,19 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
+        <div class="flex items-center justify-center mt-4">
+            <x-primary-button class="ms-4  !bg-blue-600  hover:!bg-blue-700">
                 {{ __('Register') }}
             </x-primary-button>
+            
+        </div>
+
+        <div class="flex items-center justify-center mt-4">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                {{ __('Login') }}
+            </a>
+
+            
         </div>
     </form>
 </x-guest-layout>
