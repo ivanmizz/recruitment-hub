@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -14,4 +14,26 @@
             </div>
         </div>
     </div>
+</x-app-layout> --}}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+    @include('recruiter.sidebar')
+
+    <div class="p-4 sm:ml-64">        
+
+
+        <div class="p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
+            
+        <p class="text-gray-100 dark:text-slate-100"> Welcome Recruiter!</p>
+
+        </div>
+        
+
+    </div>
+
 </x-app-layout>

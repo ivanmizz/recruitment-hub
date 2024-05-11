@@ -12,7 +12,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::paginate(10);
         return view('admin.categories', compact('categories'));
     }
 
@@ -29,7 +29,16 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
+
+        $categories = new categories;
+        $categories->name = $request->name;
+        $categories->save();
+
+        return redirect()->back()->with('success', 'Category created successfully.');
     }
 
     /**
@@ -37,7 +46,9 @@ class CategoriesController extends Controller
      */
     public function show(Categories $categories)
     {
-        //
+        // Return a view to display the details of a specific department
+        return view('admin.categories');
+        
     }
 
     /**
@@ -45,7 +56,7 @@ class CategoriesController extends Controller
      */
     public function edit(Categories $categories)
     {
-        //
+        return view('admin.categories');
     }
 
     /**
@@ -53,7 +64,19 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Categories $categories)
     {
-        //
+        
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
+
+        // Update the category record
+        $categories->update([
+            'name' => $request->input('name'),
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Category edited successfully.');
     }
 
     /**
@@ -61,6 +84,7 @@ class CategoriesController extends Controller
      */
     public function destroy(Categories $categories)
     {
-        //
+        $categories->delete();
+        return redirect()->back()->with('success', 'Department deleted successfully.');
     }
 }
