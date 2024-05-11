@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Categories::paginate(10);
-        return view('admin.categories', compact('categories'));
+        $categories = Category::paginate(10);
+        return view('admin.category', compact('categories'));
     }
 
     /**
@@ -34,9 +34,9 @@ class CategoriesController extends Controller
             'name' => 'required|unique:categories|max:255',
         ]);
 
-        $categories = new categories;
-        $categories->name = $request->name;
-        $categories->save();
+        $category = new category;
+        $category->name = $request->name;
+        $category->save();
 
         return redirect()->back()->with('success', 'Category created successfully.');
     }
@@ -44,25 +44,25 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categories $categories)
+    public function show(Category $category)
     {
         // Return a view to display the details of a specific department
-        return view('admin.categories');
+        return view('admin.category');
         
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categories $categories)
+    public function edit(Category $categories)
     {
-        return view('admin.categories');
+        return view('admin.category');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categories $categories)
+    public function update(Request $request, Category $categories)
     {
         
         // Validate the request data
@@ -82,9 +82,9 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categories $categories)
+    public function destroy(Category $category)
     {
-        $categories->delete();
+        $category->delete();
         return redirect()->back()->with('success', 'Department deleted successfully.');
     }
 }

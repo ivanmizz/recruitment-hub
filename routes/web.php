@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 // });
 
 Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
-Route::resource('categories', CategoriesController::class)->middleware(['auth', 'admin']);
+Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter',  'admin']);
 Route::resource('listings', ListingController::class)->middleware(['auth', 'recruiter', 'admin']); 
 

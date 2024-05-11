@@ -52,16 +52,21 @@
                             <div class="flex justify-center space-x-4">
                                 <!-- Cancel Button -->
                                 <button @click="deleteModal = false"
-                                    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
-                                
-                                    {{-- <!-- Delete Button for each category -->
-                                    <form method="POST" action="{{ route('categories.destroy', $categories->id) }}">
+                                    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">
+                                    Cancel
+                                </button>
+
+                                @foreach ($categories as $category)
+                              
+                                    <!-- Delete Button for each category -->
+                                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
                                             class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Delete</button>
-                                    </form> --}}
-                               
+                                    </form>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -114,17 +119,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $categories)
+                            @foreach ($categories as $category)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $categories->id }}
+                                        {{ $category->id }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $categories->name }}
+                                        {{ $category->name }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $categories->created_at }}
+                                        {{ $category->created_at }}
                                     </td>
                                     <td class="px-6 py-4">
 
@@ -132,40 +137,19 @@
                                         <button @click="editModal = true"
                                             class="text-white bg-green-500 hover:bg-green-600 px-2 py-2 rounded"">Edit</button>
                                         <!-- Delete Button -->
-                                        <button
-                                            @click="deleteModal = true; categoriesIdToDelete = {{ $categories->id }}"
+                                        <button @click="deleteModal = true; categoriesIdToDelete = {{ $category->id }}"
                                             class="text-white bg-rose-500 hover:bg-rose-600 px-2 py-2 rounded">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    
                 </div>
 
             </div>
         </div>
     </div>
-
-
-
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const successMessage = document.getElementById("success-message");
-
-            if (successMessage) {
-                setTimeout(function() {
-                    successMessage.style.display = "none";
-                }, 5000); // Hide the message after 5 seconds (5000 milliseconds)
-            }
-        });
-    </script>
-
-
-
-
-
 
 
 </x-app-layout>

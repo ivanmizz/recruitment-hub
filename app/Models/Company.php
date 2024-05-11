@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\Listing;
 
 class Company extends Model
@@ -22,7 +22,7 @@ class Company extends Model
     
     public function Categories() 
     {
-        return $this->belongsTo(Categories::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
     public function Listing() 
     {
