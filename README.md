@@ -8,11 +8,11 @@ Premium jobs listings(promoted) - one time payment implemented by stripe
 Jobs Applications management  
 
 ## Tech Stack
-Built by Laravel
+Built by Laravel 11, tailwind(flowbite), Mysql
 
 ## Running the project 
 
-**Prerequisites**: Composer, PHP 8.2, Node, Stripe account + api keys.  
+**Prerequisites**: Composer, PHP 8.2, MySql, Node, Stripe account + api keys.  
 
 ## Roles
 1. Admin  
