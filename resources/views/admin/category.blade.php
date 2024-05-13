@@ -44,6 +44,7 @@
                 <div x-show="deleteModal" class="fixed inset-0 flex items-center justify-center z-50">
                     <div class="modal">
                         <!-- Modal Content for Deleting -->
+                        @foreach ($categories as $category)
                         <div
                             class="p-4 dark:bg-slate-900 border border-solid border-rose-500 bg-white shadow-md rounded-lg">
                             <p class="text-xl text-center text-red-600">Confirm Deletion</p>
@@ -56,19 +57,20 @@
                                     Cancel
                                 </button>
 
-                                @foreach ($categories as $category)
-                              
-                                    <!-- Delete Button for each category -->
-                                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Delete</button>
-                                    </form>
-                                @endforeach
+
+
+                                <!-- Delete Button for each category -->
+                                <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Delete</button>
+                                </form>
+                               
 
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -144,7 +146,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    
+
                 </div>
 
             </div>
