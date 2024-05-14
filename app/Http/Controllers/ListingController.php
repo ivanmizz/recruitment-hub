@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\Company;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ListingController extends Controller
@@ -12,7 +14,10 @@ class ListingController extends Controller
      */
     public function index()
     {
-        //
+        $listing = Listing::all();
+        $company = Company::all();
+        $category = Category::all();
+        return view('recruiter.listing', compact('listing', 'company', 'category'));
     }
 
     /**
@@ -63,8 +68,9 @@ class ListingController extends Controller
         //
     }
 
-    public function featuredListin() 
+    public function featuredListing() 
     {
-          
+        $listing = Listing::where('type', 'premium');
+        
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use Illuminate\Http\Request;
+use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 class ApplicationController extends Controller
 {
@@ -12,7 +14,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $listing = Listing::all();
+        $user = User::all();
+        return view('recruiter.application', compact('listing', 'user'));
     }
 
     /**

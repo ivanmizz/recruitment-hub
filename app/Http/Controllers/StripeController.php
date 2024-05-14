@@ -9,6 +9,7 @@ class StripeController extends Controller
 {
     public function index() 
     {
+       
 
     }
 

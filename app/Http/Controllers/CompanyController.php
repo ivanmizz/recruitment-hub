@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -12,7 +13,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //$comp
+        $company = Company::all();
+        $category = Category::all();
+        return view ('recruiter.company', compact('company', 'category'));
     }
 
     /**
