@@ -62,4 +62,9 @@ class ListingController extends Controller
     {
         //
     }
+
+    public function featuredListin() 
+    {
+          
+    }
 }

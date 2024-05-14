@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('status');
             $table->string('resume');
-            $table->string('cover_letter');
+            $table->text('cover_letter');
             $table->timestamps();
         });
     }
