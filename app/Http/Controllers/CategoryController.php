@@ -30,11 +30,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // Validate the request data
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
+        $validatedData = $request->validate([
+            'name' => 'required',
         ]);
 
-        $category = new category;
+        $category = new Category;
         $category->name = $request->name;
         $category->save();
 
@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // Return a view to display the details of a specific department
+        // Return a view to display the details of a specific category
         return view('admin.category');
         
     }
@@ -56,7 +56,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $categories)
     {
-        return view('admin.category');
+        $categories = Category::all();
+        return view('admin.category', compact('categories'));
     }
 
     /**
@@ -66,17 +67,15 @@ class CategoryController extends Controller
     {
         
         // Validate the request data
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
+        $validatedData = $request->validate([
+            'name' => 'required',
         ]);
 
         // Update the category record
-        $categories->update([
-            'name' => $request->input('name'),
-        ]);
+        $categories->update($validatedData);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Category edited successfully.');
+        return redirect()->route('admin.category')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -85,6 +84,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->back()->with('success', 'Department deleted successfully.');
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 }

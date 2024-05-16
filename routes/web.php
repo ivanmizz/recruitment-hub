@@ -33,18 +33,17 @@ Route::middleware('auth')->group(function () {
     
 });
 
+// admin routes
+Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users')->middleware(['auth', 'admin']);
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/categories/{category}', [CategoriesController::class, 'edit'])->name('show');
-//     Route::post('/categories', [CategoriesController::class, 'update'])->name('store');
-//     Route::delete('/categories', [CategoriesController::class, 'destroy'])->name('destroy');
+// Recruiter routes
+Route::get('/mycompany', [CompanyController::class, 'index'])->name('recruiter.company')->middleware(['auth', 'recruiter']);
 
-    
-// });
 
+//resourceful routes
 Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
-Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter',  'admin']);
+Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter']);
 Route::resource('listings', ListingController::class)->middleware(['auth', 'recruiter', 'admin']); 
 
 
