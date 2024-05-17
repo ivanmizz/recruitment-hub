@@ -14,10 +14,10 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $listing = Listing::all();
-        $company = Company::all();
-        $category = Category::all();
-        return view('recruiter.listing', compact('listing', 'company', 'category'));
+        $listings = Listing::paginate(10);
+        $companies = Company::paginate(10);
+        $categories = Category::paginate(10);
+        return view('recruiter.listing', compact('listings', 'companies', 'category'));
     }
 
     /**
@@ -33,7 +33,32 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'role_level' => 'required',
+            'contract_type' => 'required',
+            'type' => 'required',
+            'category_id' => 'required|exists:category,id',
+            'company_id' => 'required|exists:company,id',
+            'user_id' => 'required|exists:user,id',
+
+            'requirement' => 'required',
+           
+        ]);
+
+        $listings = new Company;
+        $listings->title = $request->name;
+        $listings->description = $request->description;
+        $listings->role_level = $request->role_level;
+        $listings->contract_type = $request->contract_type;
+        $listings->requirement = $request->requirement;
+        $listings->type = $request->type;
+        $listings->category_id = $request->company_id;
+        $listings->user_id = $request->user_id;
+        $listings->save($validatedData);
+
+        return redirect()->back()->with('success', 'Job Listing created succesfully');
     }
 
     /**
