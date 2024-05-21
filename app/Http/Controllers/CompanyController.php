@@ -15,8 +15,8 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::paginate(10);
-        $category = Category::paginate(10);
-        return view ('recruiter.company', compact('companies', 'category'));
+        $categories = Category::paginate(10);
+        return view ('recruiter.company', compact('companies', 'categories'));
     }
 
     /**
@@ -55,9 +55,9 @@ class CompanyController extends Controller
             $company->logo = $imagePath;
         }
 
-        $company->save($validatedData);
+        $company->save();
 
-        return redirect()->back()->with('success', 'Company added succesfully');
+        return redirect()->route('recruiter.company')->with('success', 'Company added succesfully');
     }
 
     /**
@@ -93,7 +93,7 @@ class CompanyController extends Controller
 
         $company->update($validatedData);
         
-        return redirect()->route('admin.company')->with('success', 'Company details updated successfully.');
+        return redirect()->route('company.index')->with('success', 'Company details updated successfully.');
 
     }
 

@@ -7,6 +7,36 @@
 
     <div class="p-4 sm:ml-64">
 
+        @if (session('success'))
+            <div id="success-message"
+                class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                role="alert">
+                <div
+                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ms-3 text-sm font-normal">{{ session('success') }}</div>
+                <button type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                    data-dismiss-target="#toast-success" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                </button>
+            </div>
+          
+        @endif
+
+
+
 
         <div class="p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
 
@@ -18,7 +48,7 @@
                 Create new category
             </button>
 
-            <!-- Main register staff modal -->
+            <!-- Main register category modal -->
             <div id="authentication-modal" tabindex="-1" aria-hidden="true"
                 class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-md max-h-full">
@@ -46,12 +76,12 @@
                                     <div class="mb-6 ">
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                            </label>
+                                        </label>
                                         <input type="text" id="name" name="name"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                             required>
+                                            required>
                                     </div>
-                                    
+
                                 </div>
                                 <div>
 
@@ -103,8 +133,8 @@
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                                                 value="{{ old('category', $category->name) }}">
                                         </div>
-                                        
-                                    
+
+
                                     </div>
                                     <div>
 
@@ -122,20 +152,6 @@
             @endforeach
 
 
-
-            @if (session('success'))
-                <div id="success-message"
-                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                    <span class="block sm:inline">{{ session('success') }}</span>
-                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </span>
-                </div>
-            @endif
 
 
             <div x-data="{ editModal: false, deleteModal: false, departmentIdToDelete: null }">
@@ -175,7 +191,8 @@
                                             <button @click="deleteModal = false"
                                                 class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
                                             <!-- Delete Button -->
-                                            <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
+                                            <form method="POST"
+                                                action="{{ route('categories.destroy', $category->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -194,11 +211,11 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                
-                                
+
+
                                 <th scope="col" class="px-6 py-3">
                                     Name
-                                </th>  
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Creation date
                                 </th>
@@ -210,14 +227,14 @@
                         <tbody>
                             @foreach ($categories as $category)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                   
+
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $category->name }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $category->created_at }}
                                     </td>
-                                    
+
                                     <td class="px-6 py-4">
 
                                         <!-- Edit Button -->
@@ -226,7 +243,7 @@
                                             type="button">
                                             Edit
                                         </button>
-                            
+
                                         <!-- Delete Button -->
                                         <button @click="deleteModal = true; staffIdToDelete = {{ $category->id }}"
                                             class="text-white bg-rose-700 hover:bg-rose-800  font-medium rounded text-sm px-2 py-2 text-center dark:bg-rose-600 dark:hover:bg-rose-700 ">Delete</button>
@@ -254,7 +271,7 @@
             if (successMessage) {
                 setTimeout(function() {
                     successMessage.style.display = "none";
-                }, 5000); // Hide the message after 5 seconds (5000 milliseconds)
+                }, 3000); // Hide the message after 5 seconds (5000 milliseconds)
             }
         });
     </script>

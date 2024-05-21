@@ -39,11 +39,12 @@ class ListingController extends Controller
             'role_level' => 'required',
             'contract_type' => 'required',
             'type' => 'required',
+            'due_date' => 'required',
+            'requirement' => 'required',
             'category_id' => 'required|exists:category,id',
             'company_id' => 'required|exists:company,id',
             'user_id' => 'required|exists:user,id',
-
-            'requirement' => 'required',
+           
            
         ]);
 
@@ -56,6 +57,7 @@ class ListingController extends Controller
         $listings->type = $request->type;
         $listings->category_id = $request->company_id;
         $listings->user_id = $request->user_id;
+        
         $listings->save($validatedData);
 
         return redirect()->back()->with('success', 'Job Listing created succesfully');
