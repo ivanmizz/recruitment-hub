@@ -37,8 +37,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users')->middleware(['auth', 'admin']);
 
 // Recruiter routes
-Route::get('/mycompany', [CompanyController::class, 'index'])->name('company.index')->middleware(['auth', 'recruiter']);
-Route::post('/mycompany', [CompanyController::class, 'store'])->name('company.store')->middleware(['auth', 'recruiter']);
+Route::get('/company', [CompanyController::class, 'index'])->name('company.index')->middleware(['auth', 'recruiter']);
+Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store')->middleware(['auth', 'recruiter']);
 
 
 //resourceful routes

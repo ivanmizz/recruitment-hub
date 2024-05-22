@@ -33,11 +33,11 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'category_id' => 'required|exists:category,id',
-            'location' => 'required',
-            'logo' => 'mimes:jpeg,png,jpg|max:2048',
+            'company' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'category' => 'required|exists:categories,id',
+            'location' => 'required|string|max:255',
+            'logo' => 'nullable|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $company = new Company;
@@ -51,13 +51,13 @@ class CompanyController extends Controller
                 Storage::disk('public')->delete($company->logo);
             }
 
-            $imagePath = $request->file('image')->store('company_logo', 'public');
+            $imagePath = $request->file('logo')->store('company_logo', 'public');
             $company->logo = $imagePath;
         }
 
         $company->save();
 
-        return redirect()->route('recruiter.company')->with('success', 'Company added succesfully');
+        return redirect()->back()->with('success', 'Company added succesfully');
     }
 
     /**
