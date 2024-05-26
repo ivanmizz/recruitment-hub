@@ -58,7 +58,7 @@ class ListingController extends Controller
         $listings->category_id = $request->company_id;
         $listings->user_id = $request->user_id;
         
-        $listings->save($validatedData);
+        $listings->save();
 
         return redirect()->back()->with('success', 'Job Listing created succesfully');
     }
@@ -76,7 +76,7 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
-        //
+        $listings = Listing::all();
     }
 
     /**
@@ -84,7 +84,24 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'role_level' => 'required',
+            'contract_type' => 'required',
+            'type' => 'required',
+            'due_date' => 'required',
+            'requirement' => 'required',
+            'category_id' => 'required|exists:category,id',
+            'company_id' => 'required|exists:company,id',
+            'user_id' => 'required|exists:user,id',
+              
+        ]);
+
+        $listing->update($validatedData);
+
+        return redirect()->back()->with('success', 'listing details updated successfully.');
+
     }
 
     /**
@@ -97,7 +114,7 @@ class ListingController extends Controller
 
     public function featuredListing() 
     {
-        $listing = Listing::where('type', 'premium');
+        $listings = Listing::where('type', 'premium');
         
     }
 }
