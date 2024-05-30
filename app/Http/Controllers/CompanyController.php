@@ -14,8 +14,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate(10);
-        $categories = Category::paginate(10);
+        $companies = Company::with('category')->paginate(10);
+        $categories = Category::all();
         return view ('recruiter.company', compact('companies', 'categories'));
     }
 
@@ -33,7 +33,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'company' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'category' => 'required|exists:categories,id',
             'location' => 'required|string|max:255',
@@ -43,7 +43,7 @@ class CompanyController extends Controller
         $company = new Company;
         $company->name = $request->name;
         $company->description = $request->description;
-        $company->category = $request->category;
+        $company->category_id = $request->category;
         $company->location = $request->location;
 
         if ($request->hasFile('logo')) {
@@ -86,7 +86,7 @@ class CompanyController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'category_id' => 'required|exists:category,id',
+            'category' => 'required|exists:category,id',
             'location' => 'required',
             'logo' => 'mimes:jpeg,png,jpg|max:2048',
         ]);

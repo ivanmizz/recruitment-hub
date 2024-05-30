@@ -20,7 +20,7 @@ class Company extends Model
     ];
 
     
-    public function Categories() 
+    public function Category() 
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
