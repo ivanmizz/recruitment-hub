@@ -32,7 +32,8 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+      
+        $validatedData =  $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'category_id' => 'required|exists:categories,id',
@@ -43,8 +44,10 @@ class CompanyController extends Controller
         $company = new Company;
         $company->name = $request->name;
         $company->description = $request->description;
-        $company->category_id = $request->category_id;
+        $company->category_id = $request->category;
         $company->location = $request->location;
+
+        dd($company);
 
         if ($request->hasFile('logo')) {
             if ($company->logo) {

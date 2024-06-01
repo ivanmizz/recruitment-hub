@@ -35,10 +35,17 @@ Route::middleware('auth')->group(function () {
 
 // admin routes
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users')->middleware(['auth', 'admin']);
+Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store')->middleware(['auth', 'admin']);
+Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('admin.users.edit')->middleware(['auth', 'admin']);
+Route::patch('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update')->middleware(['auth', 'admin']);
+
+
 
 // Recruiter routes
 Route::get('/company', [CompanyController::class, 'index'])->name('company.index')->middleware(['auth', 'recruiter']);
 Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store')->middleware(['auth', 'recruiter']);
+Route::get('/company/edit/{id}', [CompanyController::class, 'edit'])->name('company.edit')->middleware(['auth', 'recruiter']);
+Route::patch('/company/update/{id}', [CompanyController::class, 'update'])->name('company.update')->middleware(['auth', 'recruiter']);
 
 
 //resourceful routes
