@@ -48,17 +48,17 @@ class ListingController extends Controller
            
         ]);
 
-        $listings = new Company;
-        $listings->title = $request->name;
-        $listings->description = $request->description;
-        $listings->role_level = $request->role_level;
-        $listings->contract_type = $request->contract_type;
-        $listings->requirement = $request->requirement;
-        $listings->type = $request->type;
-        $listings->category_id = $request->company_id;
-        $listings->user_id = $request->user_id;
+        $listing = new Company;
+        $listing->title = $request->name;
+        $listing->description = $request->description;
+        $listing->role_level = $request->role_level;
+        $listing->contract_type = $request->contract_type;
+        $listing->requirement = $request->requirement;
+        $listing->type = $request->type;
+        $listing->category_id = $request->company_id;
+        $listing->user_id = $request->user_id;
         
-        $listings->save();
+        $listing->save();
 
         return redirect()->back()->with('success', 'Job Listing created succesfully');
     }

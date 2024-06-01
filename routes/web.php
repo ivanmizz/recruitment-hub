@@ -44,7 +44,7 @@ Route::post('/company/store', [CompanyController::class, 'store'])->name('compan
 //resourceful routes
 Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
-// Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter']);
+Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter']);
 Route::resource('listings', ListingController::class)->middleware(['auth', 'recruiter', 'admin']); 
 
 

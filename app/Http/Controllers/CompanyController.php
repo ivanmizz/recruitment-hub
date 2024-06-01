@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
         $companies = Company::with('category')->paginate(10);
         $categories = Category::all();
-        return view ('recruiter.company', compact('companies', 'categories'));
+        return view('recruiter.company', compact('companies', 'categories'));
     }
 
     /**
@@ -32,10 +32,10 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'category' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             'location' => 'required|string|max:255',
             'logo' => 'nullable|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -43,7 +43,7 @@ class CompanyController extends Controller
         $company = new Company;
         $company->name = $request->name;
         $company->description = $request->description;
-        $company->category_id = $request->category;
+        $company->category_id = $request->category_id;
         $company->location = $request->location;
 
         if ($request->hasFile('logo')) {
@@ -73,11 +73,9 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        $company = Company::all();
-        $category = Category::all();
-        return view('recruiter.company', compact('company','category'));
+        $categories = Category::all(); // Fetch all categories to populate the dropdown
+        return view('recruiter.company', compact('company', 'categories'));
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -86,15 +84,14 @@ class CompanyController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'category' => 'required|exists:category,id',
+            'category_id' => 'required|exists:category,id',
             'location' => 'required',
             'logo' => 'mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $company->update($validatedData);
-        
-        return redirect()->route('company.index')->with('success', 'Company details updated successfully.');
 
+        return redirect()->route('company.index')->with('success', 'Company details updated successfully.');
     }
 
     /**
