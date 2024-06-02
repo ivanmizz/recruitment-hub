@@ -108,7 +108,7 @@ class CompanyController extends Controller
 
         $company->save();
 
-        return redirect()->route('company.index')->with('success', 'Company details updated successfully.');
+        return redirect()->route('company.index')->with('success', 'Company updated successfully.');
     }
 
 

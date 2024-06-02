@@ -46,6 +46,8 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/company/{company}/edit', [CompanyController::class, 'edit'])->name('company.edit');
     // Route::patch('/company/{id}/update', [CompanyController::class, 'update'])->name('company.update');
 
+    Route::get('/listing', [ListingController::class, 'index'])->name('listing.index');
+
 });
 
 
@@ -53,7 +55,7 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
 Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter']);
-Route::resource('listings', ListingController::class)->middleware(['auth', 'recruiter', 'admin']);
+Route::resource('listing', ListingController::class)->middleware(['auth', 'recruiter', 'admin']);
 
 
 require __DIR__ . '/auth.php';

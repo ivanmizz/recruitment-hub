@@ -15,8 +15,8 @@ class ListingController extends Controller
     public function index()
     {
         $listings = Listing::paginate(10);
-        $companies = Company::paginate(10);
-        $categories = Category::paginate(10);
+        $companies = Company::all();
+        $categories = Category::all();
         return view('recruiter.listing', compact('listings', 'companies', 'category'));
     }
 
@@ -41,8 +41,7 @@ class ListingController extends Controller
             'type' => 'required',
             'due_date' => 'required',
             'requirement' => 'required',
-            'category_id' => 'required|exists:category,id',
-            'company_id' => 'required|exists:company,id',
+            'company' => 'required|exists:company,id',
             'user_id' => 'required|exists:user,id',
            
            
@@ -55,7 +54,7 @@ class ListingController extends Controller
         $listing->contract_type = $request->contract_type;
         $listing->requirement = $request->requirement;
         $listing->type = $request->type;
-        $listing->category_id = $request->company_id;
+        $listing->company_id = $request->company;
         $listing->user_id = $request->user_id;
         
         $listing->save();
@@ -77,6 +76,7 @@ class ListingController extends Controller
     public function edit(Listing $listing)
     {
         $listings = Listing::all();
+        return view('recruiter.listing', compact('listing'));
     }
 
     /**
