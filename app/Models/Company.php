@@ -15,8 +15,9 @@ class Company extends Model
         'name',
         'description',
         'category_id',
-        'logo',
         'location',
+        'logo',
+       
     ];
 
     

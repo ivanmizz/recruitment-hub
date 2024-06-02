@@ -76,7 +76,7 @@
                                         Name</label>
                                     <input type="text" name="name" id="name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="" required="">
+                                        placeholder="" required>
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-1">
@@ -94,7 +94,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
 
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}"> {{ $category->name }} </option>
                                         @endforeach
                                     </select>
 
@@ -162,8 +162,8 @@
                         <td class="px-6 py-4">{{ $company->description }}</td>
                         <td class="px-6 py-4">{{ $company->location }}</td>
                         <td class="px-6 py-4">
-                            <button data-modal-target="update-modal"
-                                data-modal-toggle="update-modal"
+                            <button data-modal-target="update-modal-{{ $company->id }}"
+                                data-modal-toggle="update-modal-{{ $company->id }}"
                                 href="{{ route('company.edit', $company->id) }}"
                                 class= "text-white bg-green-700 hover:bg-green-800  font-medium rounded text-sm px-2 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700">
                                 Edit
@@ -180,7 +180,8 @@
         </table>
 
         {{-- UPDATE MODAL --}}
-        <div id="update-modal" tabindex="-1" aria-hidden="true"
+        @foreach ($companies as $company)
+        <div id="update-modal-{{ $company->id }}" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-md max-h-full">
                 <!-- Modal content -->
@@ -202,73 +203,70 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form class="p-4 md:p-5" action="{{ route('company.update', $company->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form class="p-4 md:p-5" action="{{ route('company.update', $company->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PATCH')
-                        <div class="grid
-                            gap-4 mb-4 grid-cols-2">
+                        @method('PUT')
+                        <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
-                                <label for="name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company
-                                    Name</label>
-                                <input type="text" name="name" id="name"
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Company Name
+                                </label>
+                                <input type="text" name="name" id="name" 
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ old('name', $company->name) }}">
+                                    value="{{ $company->name }}" required>
                             </div>
-
+                    
                             <div class="col-span-2 sm:col-span-1">
-                                <label for="location"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                                <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Location
+                                </label>
                                 <input type="text" name="location" id="location"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ old('location', $company->location) }}">
+                                    value="{{ $company->location }}" required>
                             </div>
-
+                    
                             <div class="col-span-2 sm:col-span-1">
-                                <label for="category_id"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Category
+                                </label>
                                 <select id="category" name="category"
-                                    value="{{ old('category', $company->category) }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ old('category', $company->category) == $category->id ? 'selected' : '' }}>
+                                        <option value="{{ $category->id }}" {{ $company->category_id == $category->id ? 'selected' : '' }}>
                                             {{ $category->name }}
                                         </option>
                                     @endforeach
                                 </select>
-
                             </div>
+                    
                             <div class="col-span-2">
-                                <label for="description"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company
-                                    Description</label>
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Company Description
+                                </label>
                                 <textarea id="description" name="description" rows="4"
-                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ old('description', $company->description) }}</textarea>
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required>{{ $company->description }}</textarea>
                             </div>
+                    
                             <div class="col-span-2">
-
-                                <label for="logo"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    for="file_input">Upload company logo</label>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">
+                                    Upload company logo
+                                </label>
+                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     id="logo" name="logo" type="file" accept=".jpeg,.jpg,.png" />
-
                             </div>
                         </div>
                         <button type="submit"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Edit company details
+                             Update company
                         </button>
                     </form>
+                    
 
                 </div>
             </div>
         </div>
-
+        @endforeach
 
         {{-- DELETE MODAL --}}
         <div id="delete-modal" tabindex="-1"

@@ -32,13 +32,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-      
+        //dd($request->all());
+
         $validatedData =  $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string|max:255',
+            'category' => 'required|exists:categories,id',
             'location' => 'required|string|max:255',
-            'logo' => 'nullable|mimes:jpeg,png,jpg|max:2048',
+            'logo' => 'nullable|mimes:jpeg,png,jpg|max:1024',
         ]);
 
         $company = new Company;
@@ -46,8 +47,6 @@ class CompanyController extends Controller
         $company->description = $request->description;
         $company->category_id = $request->category;
         $company->location = $request->location;
-
-        dd($company);
 
         if ($request->hasFile('logo')) {
             if ($company->logo) {
@@ -76,7 +75,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        $categories = Category::all(); // Fetch all categories to populate the dropdown
+        $categories = Category::all(); 
         return view('recruiter.company', compact('company', 'categories'));
     }
     /**
@@ -85,17 +84,33 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'category_id' => 'required|exists:category,id',
-            'location' => 'required',
-            'logo' => 'mimes:jpeg,png,jpg|max:2048',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'category' => 'required|exists:categories,id',
+            'location' => 'required|string|max:255',
+            'logo' => 'nullable|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $company->update($validatedData);
+        $company->name = $validatedData['name'];
+        $company->description = $validatedData['description'];
+        $company->category_id = $validatedData['category'];
+        $company->location = $validatedData['location'];
+
+        if ($request->hasFile('logo')) {
+            // Delete old logo if exists
+            if ($company->logo) {
+                Storage::disk('public')->delete($company->logo);
+            }
+
+            $imagePath = $request->file('logo')->store('company_logo', 'public');
+            $company->logo = $imagePath;
+        }
+
+        $company->save();
 
         return redirect()->route('company.index')->with('success', 'Company details updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
