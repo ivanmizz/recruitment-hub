@@ -25,7 +25,11 @@ class ListingController extends Controller
      */
     public function create()
     {
-        //
+        
+        $listings = Listing::paginate(10);
+        $companies = Company::all();
+        $categories = Category::all();
+        return view('recruiter.listing', compact('listings', 'companies', 'category'));
     }
 
     /**
@@ -42,6 +46,7 @@ class ListingController extends Controller
             'due_date' => 'required',
             'requirement' => 'required',
             'company' => 'required|exists:company,id',
+            'category' => 'required|exists:categories,id',
             'user_id' => 'required|exists:user,id',
            
            
@@ -55,7 +60,8 @@ class ListingController extends Controller
         $listing->requirement = $request->requirement;
         $listing->type = $request->type;
         $listing->company_id = $request->company;
-        $listing->user_id = $request->user_id;
+        $listing->category_id = $request->category;
+        $listing->user_id = $request->user;
         
         $listing->save();
 
@@ -67,7 +73,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        //
+        
     }
 
     /**
@@ -114,7 +120,8 @@ class ListingController extends Controller
 
     public function featuredListing() 
     {
-        $listings = Listing::where('type', 'premium');
+        $premiumlisting = Listing::where('type', 'premium');
+        return view('featuredlisting', compact('premiumlisting'));
         
     }
 }
