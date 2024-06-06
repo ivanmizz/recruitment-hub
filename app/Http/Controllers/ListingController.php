@@ -21,6 +21,30 @@ class ListingController extends Controller
     }
 
     /**
+     * Search for companies 
+     */
+    public function search(Request $request)
+{
+    $query = $request->input('query');
+
+    // Validate the search query
+    $request->validate([
+        'query' => 'required|min:3'
+    ]);
+
+    // Search companies by name, location, or description
+    $listings = Company::where('title', 'LIKE', "%$query%")
+                        ->orWhere('location', 'LIKE', "%$query%")
+                        ->orWhere('category', 'LIKE', "%$query%")
+                        ->orWhere('type', 'LIKE', "%$query%")
+                        ->orWhere('contract_type', 'LIKE', "%$query%")
+                        ->paginate(10);
+
+    // Pass the search query and results to the view
+    return view('listing.index', compact('listings', 'query'));
+}
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -86,6 +110,7 @@ class ListingController extends Controller
     }
 
     /**
+     * 
      * Update the specified resource in storage.
      */
     public function update(Request $request, Listing $listing)

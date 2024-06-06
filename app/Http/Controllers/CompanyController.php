@@ -20,6 +20,29 @@ class CompanyController extends Controller
     }
 
     /**
+     * Search for companies 
+     */
+    public function search(Request $request)
+{
+    $query = $request->input('query');
+
+    // Validate the search query
+    $request->validate([
+        'query' => 'required|min:3'
+    ]);
+
+    // Search companies by name, location, or description
+    $companies = Company::where('name', 'LIKE', "%$query%")
+                        ->orWhere('location', 'LIKE', "%$query%")
+                        ->orWhere('description', 'LIKE', "%$query%")
+                        ->paginate(10);
+
+    // Pass the search query and results to the view
+    return view('companies.index', compact('companies', 'query'));
+}
+
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

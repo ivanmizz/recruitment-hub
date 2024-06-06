@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 
 
-
+// WELCOME PAGE FOR GUESTS
 Route::get('/', function () {
     return view('welcome');
 });
@@ -44,9 +44,15 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
     Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
     Route::get('/company/{company}/edit', [CompanyController::class, 'edit'])->name('company.edit');
-    // Route::patch('/company/{id}/update', [CompanyController::class, 'update'])->name('company.update');
-
+    
     Route::get('/listing', [ListingController::class, 'index'])->name('listing.index');
+    Route::get('/listing', [ListingController::class, 'create'])->name('listing.create');
+    Route::post('/listing/store', [ListingController::class, 'store'])->name('listing.store');
+    Route::get('/listing/{listing}', [ListingController::class, 'edit'])->name('listing.edit');
+    Route::patch('/listing/{listing}', [ListingController::class, 'update'])->name('listing.update');
+
+
+
 
 });
 
