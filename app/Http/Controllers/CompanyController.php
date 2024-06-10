@@ -23,23 +23,20 @@ class CompanyController extends Controller
      * Search for companies 
      */
     public function search(Request $request)
-{
-    $query = $request->input('query');
+    {
+        $query = $request->input('query');
 
-    // Validate the search query
-    $request->validate([
-        'query' => 'required|min:3'
-    ]);
+        // Validate the search query
+        $request->validate([
+            'query' => 'required|min:3'
+        ]);
 
-    // Search companies by name, location, or description
-    $companies = Company::where('name', 'LIKE', "%$query%")
-                        ->orWhere('location', 'LIKE', "%$query%")
-                        ->orWhere('description', 'LIKE', "%$query%")
-                        ->paginate(10);
+        // Search companies by name, location, or description
+        $companies = Company::where('name', 'LIKE', "%$query%")->orWhere('location', 'LIKE', "%$query%");
 
-    // Pass the search query and results to the view
-    return view('companies.index', compact('companies', 'query'));
-}
+        // Pass the search query and results to the view
+        return view('welcome', compact('companies', 'query'));
+    }
 
 
     /**
@@ -98,7 +95,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        $categories = Category::all(); 
+        $categories = Category::all();
         return view('recruiter.company', compact('company', 'categories'));
     }
     /**

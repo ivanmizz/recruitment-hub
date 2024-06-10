@@ -15,9 +15,9 @@ class ListingController extends Controller
     public function index()
     {
         $listings = Listing::paginate(10);
-        $companies = Company::all();
+        $companies = Company::paginate(10);
         $categories = Category::all();
-        return view('recruiter.listing', compact('listings', 'companies', 'category'));
+        return view('recruiter.listing', compact('listings', 'companies', 'categories'));
     }
 
     /**

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use App\Models\Company;
+use App\Models\Listing;
 class HomeController extends Controller
 {
 
@@ -25,4 +26,12 @@ class HomeController extends Controller
             return redirect()->back();
         }
     }
+
+    // public function index() 
+    // {
+    //     $companies = Company::count();
+    //     $candidates = User::count();
+    //     $joblistings = Listing::count();
+    //     return view('admin.dashboard', compact('companies', 'candidates', 'joblistings'));
+    // }
 }

@@ -15,12 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
+Route::get('listing/search', [ListingController::class, 'search'])->name('listing.search');
+Route::get('company/search', [CompanyController::class, 'search'])->name('company.search');
+
 
 //HOME PAGE after login or registration
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
+//Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 
 // PROFILE SETTINGS ROUTES
 Route::middleware('auth')->group(function () {
@@ -51,9 +53,6 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/listing/{listing}', [ListingController::class, 'edit'])->name('listing.edit');
     Route::patch('/listing/{listing}', [ListingController::class, 'update'])->name('listing.update');
 
-
-
-
 });
 
 
@@ -61,7 +60,7 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
 Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter']);
-Route::resource('listing', ListingController::class)->middleware(['auth', 'recruiter', 'admin']);
+Route::resource('listing', ListingController::class)->middleware(['auth', 'recruiter']);
 
 
 require __DIR__ . '/auth.php';
