@@ -21,9 +21,10 @@ class HomeController extends Controller
             } else {
 
                 $companies = Company::count();
-                $candidates = User::count();
+                $candidates = User::where('usertype', 'cnd')->count();
+                $recruiters = User::where('usertype', 'rec')->count();
                 $joblistings = Listing::count();
-                return view('admin.dashboard', compact('companies', 'candidates', 'joblistings'));
+                return view('admin.dashboard', compact('companies', 'candidates', 'recruiters', 'joblistings'));
             }
         } else {
             return redirect()->back();
