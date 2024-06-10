@@ -9,11 +9,5 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
-    public function index() 
-    {
-        $companies = Company::count();
-        $candidates = User::count();
-        $joblistings = Listing::count();
-        return view('admin.dashboard', compact('companies', 'candidates', 'joblistings'));
-    }
+    
 }
