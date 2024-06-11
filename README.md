@@ -68,7 +68,7 @@ Open new terminal to start frontend development server
 ---------------|---------------------|-----------|
  **Admin**     | admin@gmail.com     | password0 |   
  **Recruiter** | recruiter@gmail.com | password1 |    
- **Candidate** | candidate@gmail.com | password2 |     
+ **Candidate** | user@gmail.com      | password2 |     
     
 
 
