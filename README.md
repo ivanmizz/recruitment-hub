@@ -19,7 +19,6 @@ Built by Laravel 11, tailwind(flowbite), Mysql
 2. Recruiter  
 3. Candidate  
 
-Admin email: admin@admin.com, password: password  
 
 Download or clone this repository    
 ```
@@ -43,7 +42,17 @@ Generate key:
 Perform database migrations:  
 ```sh
  php artisan migrate
+
 ``` 
+
+
+Seed the database:  
+```sh
+ php artisan db:seed
+
+``` 
+
+
 Start the backend development server  
 ```
   php artisan serve
@@ -52,6 +61,17 @@ Open new terminal to start frontend development server
 ```
  npm run dev
 ```
+
+## Sample User login data
+
+ **Role**      | Email               | Password  |   
+---------------|---------------------|-----------|
+ **Admin**     | admin@gmail.com     | password0 |   
+ **Recruiter** | recruiter@gmail.com | password1 |    
+ **Candidate** | candidate@gmail.com | password2 |     
+    
+
+
 
 **Open in your browser**  
 ```

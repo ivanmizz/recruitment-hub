@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Listing;
 use App\Models\Application;
+use App\Models\Company;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -28,6 +29,11 @@ class User extends Authenticatable
     public function Listing() 
     {
         return $this->hasMany(Listing::class);
+    }
+
+    public function Company() 
+    {
+        return $this->hasMany(Company::class);
     }
     public function Application() 
     {

@@ -20,7 +20,7 @@ class Listing extends Model
         'role_level',
         'contract_type',
         'requirement',
-        'type',
+        'job_type',
         'due_date',
         'user_id',
         'category_id',

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Listing;
 use App\Models\Company;
 use App\Models\Category;
@@ -66,13 +68,11 @@ class ListingController extends Controller
             'description' => 'required',
             'role_level' => 'required',
             'contract_type' => 'required',
-            'type' => 'required',
+            'job_type' => 'required',
             'due_date' => 'required',
             'requirement' => 'required',
             'company' => 'required|exists:company,id',
-            'category' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:user,id',
-           
+            'category' => 'required|exists:categories,id',    
            
         ]);
 
@@ -82,10 +82,10 @@ class ListingController extends Controller
         $listing->role_level = $request->role_level;
         $listing->contract_type = $request->contract_type;
         $listing->requirement = $request->requirement;
-        $listing->type = $request->type;
+        $listing->job_type = $request->job_type;
         $listing->company_id = $request->company;
         $listing->category_id = $request->category;
-        $listing->user_id = $request->user;
+        $listing->user_id = Auth::id();
         
         $listing->save();
 
@@ -120,12 +120,11 @@ class ListingController extends Controller
             'description' => 'required',
             'role_level' => 'required',
             'contract_type' => 'required',
-            'type' => 'required',
+            'job_type' => 'required',
             'due_date' => 'required',
             'requirement' => 'required',
             'category_id' => 'required|exists:category,id',
             'company_id' => 'required|exists:company,id',
-            'user_id' => 'required|exists:user,id',
               
         ]);
 
@@ -145,7 +144,7 @@ class ListingController extends Controller
 
     public function featuredListing() 
     {
-        $premiumlisting = Listing::where('type', 'premium');
+        $premiumlisting = Listing::where('job_type', 'premium');
         return view('featuredlisting', compact('premiumlisting'));
         
     }

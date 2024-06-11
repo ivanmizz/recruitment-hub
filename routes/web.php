@@ -21,7 +21,8 @@ Route::get('company/search', [CompanyController::class, 'search'])->name('compan
 
 //HOME PAGE after login or registration
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
-//Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+// Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
+
 
 
 // PROFILE SETTINGS ROUTES

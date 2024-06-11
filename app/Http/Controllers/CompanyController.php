@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -14,7 +15,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::with('category')->paginate(10);
+        //$companies = Company::with('category')->paginate(10);
+        $companies = Company::where('user_id', Auth::id())->paginate(10);
         $categories = Category::all();
         return view('recruiter.company', compact('companies', 'categories'));
     }
@@ -52,7 +54,6 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
 
         $validatedData =  $request->validate([
             'name' => 'required|string|max:255',
@@ -60,6 +61,7 @@ class CompanyController extends Controller
             'category' => 'required|exists:categories,id',
             'location' => 'required|string|max:255',
             'logo' => 'nullable|mimes:jpeg,png,jpg|max:1024',
+           
         ]);
 
         $company = new Company;
@@ -67,6 +69,9 @@ class CompanyController extends Controller
         $company->description = $request->description;
         $company->category_id = $request->category;
         $company->location = $request->location;
+        $company->user_id = Auth::id();
+
+
 
         if ($request->hasFile('logo')) {
             if ($company->logo) {
@@ -109,6 +114,7 @@ class CompanyController extends Controller
             'category' => 'required|exists:categories,id',
             'location' => 'required|string|max:255',
             'logo' => 'nullable|mimes:jpeg,png,jpg|max:2048',
+            
         ]);
 
         $company->name = $validatedData['name'];
