@@ -21,7 +21,7 @@ Route::get('company/search', [CompanyController::class, 'search'])->name('compan
 
 //HOME PAGE after login or registration
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
-// Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
+
 
 
 
@@ -51,8 +51,12 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/listing', [ListingController::class, 'index'])->name('listing.index');
     Route::get('/listing', [ListingController::class, 'create'])->name('listing.create');
     Route::post('/listing/store', [ListingController::class, 'store'])->name('listing.store');
-    Route::get('/listing/{listing}', [ListingController::class, 'edit'])->name('listing.edit');
-    Route::patch('/listing/{listing}', [ListingController::class, 'update'])->name('listing.update');
+
+    Route::get('/listing/create', [ListingController::class, 'create'])->name('listing.create');
+
+
+    Route::get('/listing/{listing}/edit', [ListingController::class, 'edit'])->name('listing.edit');
+    Route::patch('/listing/{listing}/edit', [ListingController::class, 'update'])->name('listing.update');
 
 });
 

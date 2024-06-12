@@ -8,7 +8,7 @@ use App\Models\Listing;
 use App\Models\Company;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class ListingController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $listings = Listing::paginate(10);
+        $listings = Listing::where('user_id', Auth::id())->paginate(10);
         $companies = Company::paginate(10);
         $categories = Category::all();
         return view('recruiter.listing', compact('listings', 'companies', 'categories'));
@@ -38,7 +38,6 @@ class ListingController extends Controller
     $listings = Company::where('title', 'LIKE', "%$query%")
                         ->orWhere('location', 'LIKE', "%$query%")
                         ->orWhere('category', 'LIKE', "%$query%")
-                        ->orWhere('type', 'LIKE', "%$query%")
                         ->orWhere('contract_type', 'LIKE', "%$query%")
                         ->paginate(10);
 
@@ -50,12 +49,10 @@ class ListingController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        
-        $listings = Listing::paginate(10);
-        $companies = Company::all();
+    {    
         $categories = Category::all();
-        return view('recruiter.listing', compact('listings', 'companies', 'category'));
+        $companies = Company::where('user_id', Auth::id())->get();
+        return view('recruiter.create_listing', compact('categories', 'companies'));
     }
 
     /**
@@ -106,7 +103,7 @@ class ListingController extends Controller
     public function edit(Listing $listing)
     {
         $listings = Listing::all();
-        return view('recruiter.listing', compact('listing'));
+        return view('recruiter.edit_listing', compact('listings'));
     }
 
     /**

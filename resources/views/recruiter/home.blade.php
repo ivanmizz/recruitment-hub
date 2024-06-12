@@ -36,7 +36,7 @@
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {{$companies}}
                 </h5>
-                <p class="font-normal text-gray-700 dark:text-gray-400"> Companies
+                <p class="font-normal text-gray-700 dark:text-gray-400"> My Companies
                 </p>
             </a>
 
@@ -67,7 +67,7 @@
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {{$applications}}
                 </h5>
-                <p class="font-normal text-gray-700 dark:text-gray-400"> Applications
+                <p class="font-normal text-gray-700 dark:text-gray-400"> Applications Received
                 </p>
             </a>
 
