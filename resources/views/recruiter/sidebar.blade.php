@@ -12,8 +12,8 @@
                 <div>Recruiter</div>
             </div>
             <li>
-                <a href="{{ route('dashboard') }}"
-                    class="flex  items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="{{ route('dashboard') }}" data-link="dashboard"
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('company.index') }}"
+                <a href="{{ route('company.index') }}" data-link="company"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
@@ -35,9 +35,8 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">My Companies</span>
                 </a>
             </li>
-            
             <li>
-                <a href="{{ route('listing.index') }}"
+                <a href="{{ route('listing.index') }}" data-link="listing"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -50,7 +49,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('dashboard') }}"
+                <a href="{{ route('dashboard') }}" data-link="jobs"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 21">
@@ -60,7 +59,7 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Jobs Applications</span>
                 </a>
             </li>
-           
+
             <li>
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
@@ -82,3 +81,5 @@
         </ul>
     </div>
 </aside>
+
+

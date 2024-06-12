@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\Models\Listing;
 use App\Models\Company;
@@ -60,26 +61,28 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $validatedData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'role_level' => 'required',
-            'contract_type' => 'required',
-            'job_type' => 'required',
-            'due_date' => 'required',
-            'requirement' => 'required',
-            'company' => 'required|exists:company,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string',
+            'role_level' => 'required|string|max:255',
+            'contract_type' => 'required|string|max:255',
+            'due_date' => 'required|date_format:d/m/Y',
+            'requirement' => 'required|string',
+            'company' => 'required|exists:companies,id',
             'category' => 'required|exists:categories,id',    
            
         ]);
 
-        $listing = new Company;
-        $listing->title = $request->name;
+        $listing = new Listing;
+        $listing->title = $request->title;
         $listing->description = $request->description;
+        $listing->location = $request->location;
         $listing->role_level = $request->role_level;
         $listing->contract_type = $request->contract_type;
         $listing->requirement = $request->requirement;
-        $listing->job_type = $request->job_type;
+        $listing->due_date = Carbon::createFromFormat('d/m/Y', $request->due_date)->format('Y-m-d');
         $listing->company_id = $request->company;
         $listing->category_id = $request->category;
         $listing->user_id = Auth::id();
@@ -120,7 +123,7 @@ class ListingController extends Controller
             'job_type' => 'required',
             'due_date' => 'required',
             'requirement' => 'required',
-            'category_id' => 'required|exists:category,id',
+            'category_id' => 'required|exists:categories,id',
             'company_id' => 'required|exists:company,id',
               
         ]);
