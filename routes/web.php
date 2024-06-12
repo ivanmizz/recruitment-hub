@@ -53,6 +53,7 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::post('/listing/store', [ListingController::class, 'store'])->name('listing.store');
 
     Route::get('/listing/create', [ListingController::class, 'create'])->name('listing.create');
+    Route::get('/listing/{listing}/show', [ListingController::class, 'show'])->name('listing.show');
 
 
     Route::get('/listing/{listing}/edit', [ListingController::class, 'edit'])->name('listing.edit');
