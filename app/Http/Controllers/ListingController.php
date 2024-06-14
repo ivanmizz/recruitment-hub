@@ -10,6 +10,7 @@ use App\Models\Company;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\User;
+
 class ListingController extends Controller
 {
     /**
@@ -27,33 +28,34 @@ class ListingController extends Controller
      * Search for companies 
      */
     public function search(Request $request)
-{
-    $query = $request->input('query');
+    {
+        $query = $request->input('query');
 
-    // Validate the search query
-    $request->validate([
-        'query' => 'required|min:3'
-    ]);
+        // Validate the search query
+        $request->validate([
+            'query' => 'required|min:3'
+        ]);
 
-    // Search companies by name, location, or description
-    $listings = Company::where('title', 'LIKE', "%$query%")
-                        ->orWhere('location', 'LIKE', "%$query%")
-                        ->orWhere('category', 'LIKE', "%$query%")
-                        ->orWhere('contract_type', 'LIKE', "%$query%")
-                        ->paginate(10);
+        // Search companies by name, location, or description
+        $listings = Company::where('title', 'LIKE', "%$query%")
+            ->orWhere('location', 'LIKE', "%$query%")
+            ->orWhere('category', 'LIKE', "%$query%")
+            ->orWhere('contract_type', 'LIKE', "%$query%")
+            ->paginate(10);
 
-    // Pass the search query and results to the view
-    return view('listing.index', compact('listings', 'query'));
-}
+        // Pass the search query and results to the view
+        return view('listing.index', compact('listings', 'query'));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {    
+    {
+        $listings = Listing::all();
         $categories = Category::all();
         $companies = Company::where('user_id', Auth::id())->get();
-        return view('recruiter.create_listing', compact('categories', 'companies'));
+        return view('recruiter.create_listing', compact('listings', 'categories', 'companies'));
     }
 
     /**
@@ -71,8 +73,8 @@ class ListingController extends Controller
             'due_date' => 'required|date_format:d/m/Y',
             'requirement' => 'required|string',
             'company' => 'required|exists:companies,id',
-            'category' => 'required|exists:categories,id',    
-           
+            'category' => 'required|exists:categories,id',
+
         ]);
 
         $listing = new Listing;
@@ -86,7 +88,7 @@ class ListingController extends Controller
         $listing->company_id = $request->company;
         $listing->category_id = $request->category;
         $listing->user_id = Auth::id();
-        
+
         $listing->save();
 
         return redirect()->back()->with('success', 'Job Listing created succesfully');
@@ -97,17 +99,18 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        
     }
 
     /**
      * Show the form for editing the specified resource.
-     */
-    public function edit(Listing $listing)
+     */ public function edit(Listing $listing)
     {
         $listings = Listing::all();
-        return view('recruiter.edit_listing', compact('listings'));
+        $categories = Category::all();
+        $companies = Company::where('user_id', Auth::id())->get();
+        return view('recruiter.edit_listing', compact('listing', 'listings', 'categories', 'companies'));
     }
+
 
     /**
      * 
@@ -116,22 +119,32 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'role_level' => 'required',
-            'contract_type' => 'required',
-            'job_type' => 'required',
-            'due_date' => 'required',
-            'requirement' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'company_id' => 'required|exists:company,id',
-              
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string',
+            'role_level' => 'required|string|max:255',
+            'contract_type' => 'required|string|max:255',
+            'due_date' => 'required|date_format:d/m/Y',
+            'requirement' => 'required|string',
+            'company' => 'required|exists:companies,id',
+            'category' => 'required|exists:categories,id',
+
         ]);
 
-        $listing->update($validatedData);
 
-        return redirect()->back()->with('success', 'listing details updated successfully.');
+        $listing->title = $validatedData['title'];
+        $listing->description = $validatedData['description'];
+        $listing->location = $validatedData['location'];
+        $listing->role_level = $validatedData['role_level'];
+        $listing->contract_type = $validatedData['contract_type'];
+        $listing->requirement = $validatedData['requirement'];
+        $listing->due_date = Carbon::createFromFormat('d/m/Y', $validatedData['due_date'])->format('Y-m-d');
+        $listing->company_id = $validatedData['company'];
+        $listing->category_id = $validatedData['category'];
+       
 
+        $listing->save();
+        return redirect()->route('recruiter.listing')->with('success', 'Listing details updated successfully.');
     }
 
     /**
@@ -139,13 +152,13 @@ class ListingController extends Controller
      */
     public function destroy(Listing $listing)
     {
-        //
+        $listing->delete();
+        return redirect()->back()->with('success', 'Listing deleted successfully.');
     }
 
-    public function featuredListing() 
+    public function featuredListing()
     {
         $premiumlisting = Listing::where('job_type', 'premium');
         return view('featuredlisting', compact('premiumlisting'));
-        
     }
 }
