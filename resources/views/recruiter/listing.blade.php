@@ -31,12 +31,14 @@
         @endif
 
         <a href="{{ route('listing.create') }}"
-            class="inline-block text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 max-w-xs">
+            class="inline-block justify-center ml-6 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 max-w-xs">
             Create new listing
         </a>
 
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 border-2 mt-2  border-gray-200 border-solid rounded-lg dark:border-gray-700">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 ">
+
+            
 
             @foreach ($listings as $listing)
                 <div

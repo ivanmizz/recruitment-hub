@@ -107,8 +107,8 @@ class ListingController extends Controller
     {
         $listings = Listing::all();
         $categories = Category::all();
-        $companies = Company::where('user_id', Auth::id())->get();
-        return view('recruiter.edit_listing', compact('listing', 'listings', 'categories', 'companies'));
+       $companies = Company::where('user_id', Auth::id())->get();
+        return view('recruiter.edit_listing', compact( 'listings', 'listing', 'companies', 'categories'));
     }
 
 
@@ -144,7 +144,7 @@ class ListingController extends Controller
        
 
         $listing->save();
-        return redirect()->route('recruiter.listing')->with('success', 'Listing details updated successfully.');
+        return redirect()->route('listing.index')->with('success', 'Listing details updated successfully.');
     }
 
     /**
@@ -153,7 +153,7 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         $listing->delete();
-        return redirect()->back()->with('success', 'Listing deleted successfully.');
+        return redirect()->route('listing.index')->with('success', 'Listing deleted successfully.');
     }
 
     public function featuredListing()

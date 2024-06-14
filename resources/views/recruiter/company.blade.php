@@ -32,7 +32,7 @@
 
 
 
-        <div class="p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
+        <div class="p-4 ">
 
             <!-- CREATE COMPANY TOGGLE BUTTON -->
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -292,7 +292,7 @@
                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are
                             you sure you want to delete this company?</h3>
 
-                        {{-- <form id="deleteForm" action="{{ route('company.destroy', $company->id) }}" method="POST"> --}}
+                        <form id="deleteForm" action="{{ route('company.destroy', $company->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
