@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/ivan', function () {
+    return view('ivan');
+});
+
 Route::get('listing/search', [ListingController::class, 'search'])->name('listing.search');
 Route::get('company/search', [CompanyController::class, 'search'])->name('company.search');
 

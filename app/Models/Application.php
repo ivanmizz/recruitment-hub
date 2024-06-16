@@ -17,6 +17,10 @@ class Application extends Model
         'status',
         'resume',
         'cover_letter',
+        'message',
+        'candidate_name',
+        'candidate_email',
+        'candidate_phone',
     ];
 
     public function Listing() 

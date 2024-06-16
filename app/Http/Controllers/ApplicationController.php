@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
+
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Models\Listing;
@@ -10,13 +13,13 @@ use Illuminate\Support\Facades\Storage;
 class ApplicationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the applications for the recruiter.
      */
     public function index()
     {
-        $listing = Listing::all();
-        $user = User::all();
-        return view('recruiter.application', compact('listing', 'user'));
+        $listings = Listing::where('user_id', Auth::id())->get();
+        $applications = Application::where('listing_id->user_id', Auth::id())->get();
+        return view('recruiter.application', compact('listings', 'applications'));
     }
 
     /**
@@ -36,11 +39,12 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the applications for the candidate.
      */
     public function show(Application $application)
     {
-        //
+        $applications = Application::where('email', 'user->email')->get();
+        return view('candidate.application', compact('applications'));
     }
 
     /**
