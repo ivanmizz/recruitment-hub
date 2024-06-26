@@ -14,7 +14,7 @@ use App\Models\User;
 class ListingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of jobs for the recruiter.
      */
     public function index()
     {
@@ -24,6 +24,12 @@ class ListingController extends Controller
         return view('recruiter.listing', compact('listings', 'companies', 'categories'));
     }
 
+    // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
+    public function showAllJobs() 
+    {
+        $listings = Listing::paginate(10);
+        return view('candidate.jobs', compact('listings'));
+    }
     /**
      * Search for companies 
      */
@@ -33,7 +39,7 @@ class ListingController extends Controller
 
         // Validate the search query
         $request->validate([
-            'query' => 'required|min:3'
+            'query' => 'required|min:2'
         ]);
 
         // Search companies by name, location, or description
@@ -52,10 +58,10 @@ class ListingController extends Controller
      */
     public function create()
     {
-        $listings = Listing::all();
+        //$listings = Listing::all();
         $categories = Category::all();
         $companies = Company::where('user_id', Auth::id())->get();
-        return view('recruiter.create_listing', compact('listings', 'categories', 'companies'));
+        return view('recruiter.create_listing', compact('categories','companies'));
     }
 
     /**
@@ -63,8 +69,8 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        $validatedData = $request->validate([
+        
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'required|string',

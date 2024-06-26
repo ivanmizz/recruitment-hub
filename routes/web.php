@@ -26,6 +26,8 @@ Route::get('company/search', [CompanyController::class, 'search'])->name('compan
 //HOME PAGE after login or registration
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
 
+// CANDIDATE ROUTES
+Route::get('/jobslisting', [ListingController::class, 'showAllJobs'])->name('listing.showAllJobs');
 
 
 
@@ -51,6 +53,8 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
     Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
     Route::get('/company/{company}/edit', [CompanyController::class, 'edit'])->name('company.edit');
+    Route::get('/company/{company}/destroy', [CompanyController::class, 'destroy'])->name('company.destroy');
+
     
     Route::get('/listing', [ListingController::class, 'index'])->name('listing.index');
     Route::get('/listing', [ListingController::class, 'create'])->name('listing.create');
