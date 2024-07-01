@@ -24,12 +24,7 @@ class ListingController extends Controller
         return view('recruiter.listing', compact('listings', 'companies', 'categories'));
     }
 
-    // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
-    public function showAllJobs() 
-    {
-        $listings = Listing::paginate(10);
-        return view('candidate.jobs', compact('listings'));
-    }
+   
     /**
      * Search for companies 
      */
@@ -42,7 +37,7 @@ class ListingController extends Controller
             'query' => 'required|min:2'
         ]);
 
-        // Search companies by name, location, or description
+        // Search companies by name, location, or contract type
         $listings = Company::where('title', 'LIKE', "%$query%")
             ->orWhere('location', 'LIKE', "%$query%")
             ->orWhere('category', 'LIKE', "%$query%")
@@ -113,7 +108,7 @@ class ListingController extends Controller
     {
         $listings = Listing::all();
         $categories = Category::all();
-       $companies = Company::where('user_id', Auth::id())->get();
+        $companies = Company::where('user_id', Auth::id())->get();
         return view('recruiter.edit_listing', compact( 'listings', 'listing', 'companies', 'categories'));
     }
 
@@ -161,6 +156,13 @@ class ListingController extends Controller
         $listing->delete();
         return redirect()->route('listing.index')->with('success', 'Listing deleted successfully.');
     }
+
+     // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
+     public function showAllJobs() 
+     {
+         $listings = Listing::paginate(10);
+         return view('candidate.jobs', compact('listings'));
+     }
 
     public function featuredListing()
     {

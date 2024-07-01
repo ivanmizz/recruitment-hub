@@ -7,15 +7,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
+ 
 
 
 // WELCOME PAGE FOR GUESTS
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/ivan', function () {
+Route::get('/', function () {
     return view('ivan');
 });
 
