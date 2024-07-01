@@ -16,6 +16,18 @@
                             {{ __('Jobs Listings') }}
                         </x-nav-link>
                     </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('listing.showAllJobs')" :active="request()->routeIs('savedjobs')">
+                            {{ __('Saved Jobs') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('notification')">
+                            {{ __('Notifications') }}
+                        </x-nav-link>
+                    </div>
                    
                 </div>
             </div>

@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::share('usertype', 'adm');
-        View::share('type', 'premium');
+        View::share('job_type', 'premium');
     }
 }

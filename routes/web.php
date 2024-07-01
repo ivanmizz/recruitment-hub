@@ -23,7 +23,7 @@ Route::get('listing/search', [ListingController::class, 'search'])->name('listin
 Route::get('company/search', [CompanyController::class, 'search'])->name('company.search');
 
 
-//HOME PAGE after login or registration
+//HOME PAGE redirect for a specific role/usertype
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
 
 // CANDIDATE ROUTES
