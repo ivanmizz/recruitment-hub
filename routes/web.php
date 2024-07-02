@@ -10,13 +10,21 @@ use App\Http\Controllers\UserController;
  
 
 
-// WELCOME PAGE FOR GUESTS
+// Laravel starter home page
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
+//HOME PAGE FOR RECRUITMENT HUB
 Route::get('/', function () {
-    return view('ivan');
+    return view('listing.home');
+});
+
+Route::get('/jobs', function () {
+    return view('listing.jobs');
+});
+Route::get('/companies', function () {
+    return view('listing.companies');
 });
 
 Route::get('listing/search', [ListingController::class, 'search'])->name('listing.search');
