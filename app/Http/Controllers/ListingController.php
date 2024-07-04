@@ -45,7 +45,7 @@ class ListingController extends Controller
             ->paginate(10);
 
         // Pass the search query and results to the view
-        return view('listing.index', compact('listings', 'query'));
+        return view('listing.jobs', compact('listings', 'query'));
     }
 
     /**

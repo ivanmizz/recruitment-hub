@@ -330,7 +330,7 @@
             if (successMessage) {
                 setTimeout(function() {
                     successMessage.style.display = "none";
-                }, 5000); // Hide the message after 5 seconds (5000 milliseconds)
+                }, 3000); 
             }
         });
     </script>
