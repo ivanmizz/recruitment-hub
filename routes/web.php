@@ -18,14 +18,15 @@ Route::get('/welcome', function () {
 //HOME PAGE FOR RECRUITMENT HUB
 Route::get('/', function () {
     return view('listing.home');
-});
+})->name('home');
 
 Route::get('/jobs', function () {
     return view('listing.jobs');
-});
+})->name('jobs');
+
 Route::get('/companies', function () {
     return view('listing.companies');
-});
+})->name('companies');
 
 Route::get('listing/search', [ListingController::class, 'search'])->name('listing.search');
 Route::get('company/search', [CompanyController::class, 'search'])->name('company.search');

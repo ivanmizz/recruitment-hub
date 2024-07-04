@@ -40,7 +40,7 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('dashboard')">
+                        <x-dropdown-link :href="route('home')">
                             {{ __('Home') }}
                         </x-dropdown-link>
 
