@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\UserController;
  
 
@@ -15,28 +16,36 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-//HOME PAGE FOR RECRUITMENT HUB
+//HOME PAGE redirect for a specific role/usertype
+Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
+
+//HOME PAGE 
 Route::get('/', function () {
     return view('listing.home');
 })->name('home');
 
-Route::get('/jobs', function () {
-    return view('listing.jobs');
-})->name('jobs');
+// Route::get('/jobs', function () {
+//     return view('listing.jobs');
+// })->name('jobs');
 
-Route::get('/companies', function () {
-    return view('listing.companies');
-})->name('companies');
+// Route::get('/companies', function () {
+//     return view('listing.companies');
+// })->name('companies');
 
-Route::get('listing/search', [ListingController::class, 'search'])->name('listing.search');
+
+Route::get('/jobs', [ListingController::class, 'showAllJobs'])->name('jobs');
+Route::get('jobs/search', [ListingController::class, 'search'])->name('listing.search');
+
+
+Route::get('/companies', [CompanyController::class, 'showAllCompanies'])->name('companies');
 Route::get('company/search', [CompanyController::class, 'search'])->name('company.search');
 
 
-//HOME PAGE redirect for a specific role/usertype
-Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
-
 // CANDIDATE ROUTES
-Route::get('/jobslisting', [ListingController::class, 'showAllJobs'])->name('listing.showAllJobs');
+Route::get('/applications', [ApplicationController::class, 'showMyApplication'])->name('application.showMyApplication');
+Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('application.show');
+Route::post('/applications', [ApplicationController::class, 'store'])->name('application.store');
+
 
 
 
@@ -59,6 +68,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // RECRUITER ROUTES
 Route::middleware(['auth', 'recruiter'])->group(function () {
+
     Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
     Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
     Route::get('/company/{company}/edit', [CompanyController::class, 'edit'])->name('company.edit');
@@ -75,6 +85,11 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
 
     Route::get('/listing/{listing}/edit', [ListingController::class, 'edit'])->name('listing.edit');
     Route::patch('/listing/{listing}/edit', [ListingController::class, 'update'])->name('listing.update');
+
+    Route::get('/applications', [ApplicationController::class, 'index'])->name('application.index');
+    Route::get('/applications/{application}', [ApplicationController::class, 'showCandidateApplication'])->name('application.showCandidateApplication');
+    Route::get('/applications/{application}', [ApplicationController::class, 'update'])->name('application.destroy');
+    Route::get('/applications/{application}', [ApplicationController::class, 'destroy'])->name('application.destroy');
 
 });
 
