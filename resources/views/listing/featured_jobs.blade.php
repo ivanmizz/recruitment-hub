@@ -1,30 +1,9 @@
-<x-base-layout>
 
-    <div class="p-4 sm:ml-64">
-
-        @include('listing.navbar')
-
-        @include('listing.sidebar')
-
-        
-
-        <div class="grid grid-cols-1 md:grid-cols-1 gap-4 p-4 ">
-            
-            <div class="flex fixed top-36">
-                <form action="{{ route('listing.search') }}" method="GET">
-                    <input type="search" name="query" required minlength="2" id="default-search"
-                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search for Jobs, Category, Location..." required />
-                    <button type="submit"
-                        class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Search
-                    </button>
-                </form>
-            </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 ">
 
             @foreach ($listings as $listing)
                 <div href="#"
-                    class="w-full max-w-2xl mt-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+                    class="w-full max-w-2xl m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
                     <div class="flex justify-end px-4 pt-4">
                         @auth
                             <a href="" class=" dark:text-white">
@@ -111,15 +90,9 @@
                     </div>
                 </div>
             @endforeach
-
-
-            <div class="mt-4">
-                {{ $listings->links('vendor.pagination.tailwind') }} <!-- Pagination links -->
-            </div>
-
-
-
         </div>
-    </div>
+   
 
-</x-base-layout>
+
+
+

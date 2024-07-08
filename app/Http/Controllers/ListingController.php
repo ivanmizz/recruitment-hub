@@ -37,11 +37,10 @@ class ListingController extends Controller
             'query' => 'required|min:2'
         ]);
 
-        // Search companies by name, location, or contract type
-        $listings = Company::where('title', 'LIKE', "%$query%")
-            ->orWhere('location', 'LIKE', "%$query%")
-            ->orWhere('category', 'LIKE', "%$query%")
-            ->orWhere('contract_type', 'LIKE', "%$query%")
+        // Search companies by name, location, or category
+        $listings = Listing::where('title', 'LIKE', "%$query%")
+            // ->orWhere('location', 'LIKE', "%$query%")
+            // ->orWhere('category', 'LIKE', "%$query%")
             ->paginate(10);
 
         // Pass the search query and results to the view
@@ -164,9 +163,10 @@ class ListingController extends Controller
          return view('listing.jobs', compact('listings'));
      }
 
-    public function featuredListing()
+    public function showFeaturedJobs()
     {
-        $premiumlisting = Listing::where('job_type', 'premium');
-        return view('featuredlisting', compact('premiumlisting'));
+        //$listings = Listing::where('job_type', 'premium');
+        $listings = Listing::all();
+        return view('listing.home', compact('listings'));
     }
 }

@@ -20,17 +20,7 @@ Route::get('/welcome', function () {
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
 
 //HOME PAGE 
-Route::get('/', function () {
-    return view('listing.home');
-})->name('home');
-
-// Route::get('/jobs', function () {
-//     return view('listing.jobs');
-// })->name('jobs');
-
-// Route::get('/companies', function () {
-//     return view('listing.companies');
-// })->name('companies');
+Route::get('/', [ListingController::class, 'showFeaturedJobs'])->name('home');
 
 
 Route::get('/jobs', [ListingController::class, 'showAllJobs'])->name('jobs');

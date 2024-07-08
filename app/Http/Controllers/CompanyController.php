@@ -137,6 +137,12 @@ class CompanyController extends Controller
         return redirect()->route('company.index')->with('success', 'Company updated successfully.');
     }
 
+    public function showAllCompanies() 
+     {
+         $companies = Company::paginate(10);
+         return view('listing.companies', compact('companies'));
+     }
+
 
     /**
      * Remove the specified resource from storage.
