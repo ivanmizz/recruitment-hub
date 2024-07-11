@@ -37,7 +37,7 @@ class CompanyController extends Controller
         $companies = Company::where('name', 'LIKE', "%$query%")->orWhere('location', 'LIKE', "%$query%");
 
         // Pass the search query and results to the view
-        return view('welcome', compact('companies', 'query'));
+        return view('listing.companies', compact('companies', 'query'));
     }
 
 
