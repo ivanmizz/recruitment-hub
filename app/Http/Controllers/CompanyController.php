@@ -139,9 +139,19 @@ class CompanyController extends Controller
 
     public function showAllCompanies() 
      {
-         $companies = Company::paginate(10);
+         $companies = Company::paginate(5);
          return view('listing.companies', compact('companies'));
      }
+
+
+    //   A LISTING OF COMPANIES FOR THE ADMIN 
+     public function showCompanies()
+    {
+        //$companies = Company::with('category')->paginate(10);
+        $companies = Company::paginate(10);
+        $categories = Category::all();
+        return view('admin.company', compact('companies', 'categories'));
+    }
 
 
     /**

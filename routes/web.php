@@ -52,6 +52,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::patch('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::get('/admin/companies', [CompanyController::class, 'showCompanies'])->name('admin.company');
+
 });
 
 

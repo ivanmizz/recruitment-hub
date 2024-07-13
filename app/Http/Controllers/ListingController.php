@@ -159,7 +159,7 @@ class ListingController extends Controller
      // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
      public function showAllJobs() 
      {
-         $listings = Listing::paginate(10);
+         $listings = Listing::paginate(4);
          return view('listing.jobs', compact('listings'));
      }
 

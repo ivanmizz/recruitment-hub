@@ -42,7 +42,7 @@
             </svg>
 
         </a>
-        <div class="p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
+        <div class="p-4 ">
 
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <form class="p-4 md:p-5" action="{{ route('listing.update', ['listing' => $listing->id]) }}"

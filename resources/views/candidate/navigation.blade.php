@@ -7,27 +7,23 @@
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
+                            {{ __('My Applications') }}
                         </x-nav-link>
                     </div>
                     
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('listing.showAllJobs')" :active="request()->routeIs('listing.showAllJobs')">
+                        <x-nav-link :href="route('jobs')" :active="request()->routeIs('jobs')">
                             {{ __('Jobs Listings') }}
                         </x-nav-link>
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('listing.showAllJobs')" :active="request()->routeIs('savedjobs')">
+                        <x-nav-link :href="route('jobs')" :active="request()->routeIs('savedjobs')">
                             {{ __('Saved Jobs') }}
                         </x-nav-link>
                     </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('notification')">
-                            {{ __('Notifications') }}
-                        </x-nav-link>
-                    </div>
+                    
                    
                 </div>
             </div>
