@@ -23,13 +23,13 @@ class Application extends Model
         'candidate_phone',
     ];
 
-    public function Listing() 
+    public function listing() 
     {
         return $this->belongsTo(Listing::class, 'listing_id');
     }
 
 
-    public function User() 
+    public function user() 
     {
         return $this->belongsTo(User::class, 'user_id');
     }

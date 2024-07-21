@@ -19,6 +19,19 @@ class UserController extends Controller
         return view('admin.users', compact('users'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Validate the search query
+        $request->validate([
+            'query' => 'required|min:2'
+        ]);
+        $users = User::where('name', 'LIKE', "%$query%")->paginate(10);
+
+        return view('admin.users', compact('users', 'query'));
+    }
+
     public function store(Request $request)
     {
 

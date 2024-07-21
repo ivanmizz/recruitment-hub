@@ -30,11 +30,11 @@ class CompanyController extends Controller
 
         // Validate the search query
         $request->validate([
-            'query' => 'required|min:3'
+            'query' => 'required|min:2'
         ]);
 
-        // Search companies by name, location, or description
-        $companies = Company::where('name', 'LIKE', "%$query%")->orWhere('location', 'LIKE', "%$query%");
+        // Search companies by name, location, or category
+        $companies = Company::where('name', 'LIKE', "%$query%")->paginate(10);
 
         // Pass the search query and results to the view
         return view('listing.companies', compact('companies', 'query'));

@@ -22,15 +22,15 @@ class Company extends Model
     ];
 
     
-    public function Category() 
+    public function category() 
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    public function User() 
+    public function user() 
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function Listing() 
+    public function listing() 
     {
         return $this->hasMany(Listing::class);
     }

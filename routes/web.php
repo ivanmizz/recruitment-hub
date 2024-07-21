@@ -11,10 +11,10 @@ use App\Http\Controllers\UserController;
  
 
 
-// Laravel starter home page
-Route::get('/welcome', function () {
-    return view('welcome');
-});
+// // Laravel starter home page
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });
 
 //HOME PAGE redirect for a specific role/usertype
 Route::get('/dashboard', [HomeController::class, 'redirect'])->name('dashboard');
@@ -25,6 +25,7 @@ Route::get('/', [ListingController::class, 'showFeaturedJobs'])->name('home');
 
 Route::get('/jobs', [ListingController::class, 'showAllJobs'])->name('jobs');
 Route::get('jobs/search', [ListingController::class, 'search'])->name('listing.search');
+Route::get('/jobs/{listing}/{title}', [ListingController::class, 'show'])->name('listing.showjob');
 
 
 Route::get('/companies', [CompanyController::class, 'showAllCompanies'])->name('companies');
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
 // ADMIN ROUTES
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/admin/users/search', [UserController::class, 'search'])->name('admin.users.search');
     Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::patch('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update');

@@ -99,6 +99,11 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+
+        $listings = Listing::all();
+        $categories = Category::all();
+        $companies = Company::where('user_id', Auth::id())->get();
+        return view('listing.show_listing', compact( 'listings', 'listing', 'companies', 'categories'));
     }
 
     /**

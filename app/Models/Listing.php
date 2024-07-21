@@ -28,22 +28,22 @@ class Listing extends Model
     ];
 
 
-    public function User() 
+    public function user() 
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function Categories() 
+    public function categories() 
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function Company() 
+    public function company() 
     {
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public function Application() 
+    public function application() 
     {
         return $this->hasMany(Application::class);
     }

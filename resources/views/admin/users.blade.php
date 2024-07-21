@@ -2,8 +2,8 @@
 
     @include('admin.sidebar')
 
-    <div class=""> 
-        <form class="max-w-md mx-auto" action="{{ route('listing.search') }}" method="GET">
+    <div class="">
+        <form class="max-w-md mx-auto" action="{{ route('admin.users.search') }}" method="GET">
             <label for="default-search"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
@@ -26,7 +26,7 @@
 
     <div class="p-4 sm:ml-64">
         <div class="p-4  rounded-lg dark:border-gray-700">
-            <table class="w-full text-sm text-left text-gray-500">
+            <table class="w-full text-sm text-left text-gray-500 rounded-lg">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th class="px-6 py-3">ID</th>
@@ -56,6 +56,10 @@
                     @endforeach
                 </tbody>
             </table>
+
+            @empty($user)
+                <h1 class=" text-3xl"> No results</h1>
+            @endempty
 
             <div class="mt-4">
                 {{ $users->links('vendor.pagination.tailwind') }} <!-- Pagination links -->
@@ -132,7 +136,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">Candidate</div>
-                                   
+
                                 </div>
                                 <svg class="w-4 h-4 ms-3 rtl:rotate-180 text-gray-500 dark:text-gray-400"
                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

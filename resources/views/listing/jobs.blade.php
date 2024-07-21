@@ -109,9 +109,8 @@
                                 </span>
                             </div>
 
-                            <div class="flex justify-end">
-                                <a href="#" class="flex">
-                                    <span class="text-xs">Apply</span>
+                            <span class=" border rounded-full border-rose-800 px-1  transition ease-in-out delay-150 bg-rose-500 hover:-translate-y-1 hover:scale-110 hover:bg-red-600 duration-300">
+                                <a href="{{ route('listing.showjob', ['listing' => $listing->id, 'title' => $listing->title]) }}" class="flex">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -120,15 +119,16 @@
                                     </svg>
 
                                 </a>
-                            </div>
+                            </span>
                         </div>
                     </div>
                 </div>
-                @empty($listing)
-                    <h1> No results</h1>
-                @endempty
 
             @endforeach
+
+            @empty($listing)
+            <h1 class="dark:text-white text-3xl"> No results</h1>
+            @endempty
 
 
             <div class="mt-4">

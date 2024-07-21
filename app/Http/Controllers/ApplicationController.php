@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Validation\Rule;
 
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -35,7 +36,40 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'candidate_name' => 'required|string|max:25',
+            'candidate_email' => 'required|string|max:25',
+            'candidate_phone' => 'required|string|max:10',
+            'resume' => 'required',
+            'message' => 'nullable|max:255',
+            'status' => ['required', 'string', Rule::in(['received', 'reviewed', 'shortlisted'])],
+            'cover_letter' => 'required|string|max:255',
+            'listing' => 'required|exists:listings,id',
+           
+
+        ]);
+
+        $application = new Application;
+        $application->candidate_phone = $request->candidate_phone;
+        $application->resume = $request->resume;
+        $application->message = $request->message;
+        $application->status = $request->status;
+        $application->cover_letter = $request->cover_letter;
+        $application->listing_id = $request->company;
+       
+        if (Auth::check()) {
+            $application->user_id = Auth::id();
+            $application->candidate_name = auth()->user()->name;
+            $application->candidate_email = auth()->user()->email;
+
+        }  else {
+            $application->candidate_name = $request->candidate_name;
+            $application->candidate_email = $request->candidate_email;
+        }
+
+        $application->save();
+
+        return redirect()->back()->with('success', 'Application submitted succesfully');
     }
 
     /**
@@ -43,7 +77,7 @@ class ApplicationController extends Controller
      */
     public function show(Application $application)
     {
-        $applications = Application::where('email', 'user->email')->get();
+        $applications = Application::where('candidate_email', 'user->email')->orWhere('user_id', Auth::id())->get();
         return view('candidate.application', compact('applications'));
     }
 
@@ -60,7 +94,17 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, Application $application)
     {
-        //
+        $validatedData = $request->validate([
+            'message' => 'nullable|max:255',
+            'status' => 'nullable|max:255',
+        ]);
+
+        $application->status = $validatedData['status'];
+        $application->message = $validatedData['message'];
+        
+       
+        $application->save();
+        return redirect()->back()->with('success', 'Application updated successfully.');
     }
 
     /**

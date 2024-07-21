@@ -77,11 +77,17 @@
                     </div>
                 </div>
             @endforeach
+            
+            @empty($company)
+            <h1 class="dark:text-white text-3xl"> No results</h1>
+            @endempty
 
 
-            {{-- <div class="mt-4">
+
+
+            <div class="mt-4">
                 {{ $companies->links('vendor.pagination.tailwind') }} <!-- Pagination links -->
-            </div> --}}
+            </div>
 
 
 
