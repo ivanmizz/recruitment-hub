@@ -39,9 +39,10 @@ class ListingController extends Controller
 
         // Search companies by name, location, or category
         $listings = Listing::where('title', 'LIKE', "%$query%")
-            // ->orWhere('location', 'LIKE', "%$query%")
-            // ->orWhere('category', 'LIKE', "%$query%")
-            ->paginate(10);
+             ->orWhere('location', 'LIKE', "%$query%")
+             ->orWhereHas('categories', function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%$query%");
+            })->paginate(4);
 
         // Pass the search query and results to the view
         return view('listing.jobs', compact('listings', 'query'));
@@ -173,14 +174,14 @@ class ListingController extends Controller
      // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
      public function showAllJobs() 
      {
-         $listings = Listing::paginate(4);
+         $listings = Listing::latest()->paginate(4);
          return view('listing.jobs', compact('listings'));
      }
 
     public function showFeaturedJobs()
     {
         //$listings = Listing::where('job_type', 'premium');
-        $listings = Listing::all();
+        $listings = Listing::latest();
         return view('listing.home', compact('listings'));
     }
 }

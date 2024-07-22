@@ -27,7 +27,9 @@ class UserController extends Controller
         $request->validate([
             'query' => 'required|min:2'
         ]);
-        $users = User::where('name', 'LIKE', "%$query%")->paginate(10);
+        $users = User::where('name', 'LIKE', "%$query%")
+            ->orWhere('usertype', 'LIKE', "%$query%")
+            ->paginate(10);
 
         return view('admin.users', compact('users', 'query'));
     }
@@ -55,9 +57,9 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User added succesfully');
     }
 
-    public function edit(User $user) 
+    public function edit(User $user)
     {
-        $users = User::with('usertype'); 
+        $users = User::with('usertype');
         return view('admin.users', compact('users', 'usertype'));
     }
 

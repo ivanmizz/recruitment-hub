@@ -34,7 +34,11 @@ class CompanyController extends Controller
         ]);
 
         // Search companies by name, location, or category
-        $companies = Company::where('name', 'LIKE', "%$query%")->paginate(10);
+        $companies = Company::where('name', 'LIKE', "%$query%")
+             ->orWhere('location', 'LIKE', "%$query%")
+             ->orWhereHas('categories', function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%$query%");
+            }) ->paginate(4);
 
         // Pass the search query and results to the view
         return view('listing.companies', compact('companies', 'query'));
