@@ -66,8 +66,8 @@ class ListingController extends Controller
         
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'location' => 'required|string',
+            'description' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
             'role_level' => 'required|string|max:255',
             'contract_type' => 'required|string|max:255',
             'due_date' => 'required|date_format:d/m/Y',
@@ -98,6 +98,15 @@ class ListingController extends Controller
      * Display the specified resource.
      */
     public function show(Listing $listing)
+    {
+
+        $listings = Listing::all();
+        $categories = Category::all();
+        $companies = Company::where('user_id', Auth::id())->get();
+        return view('recruiter.show_listing', compact( 'listings', 'listing', 'companies', 'categories'));
+    }
+
+    public function showjob(Listing $listing)
     {
 
         $listings = Listing::all();

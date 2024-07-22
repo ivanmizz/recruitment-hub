@@ -8,15 +8,14 @@
         <div class="w-full px-4 py-8 lg:gap-8 xl:gap-0 lg:py-16 lg:grid lg:grid-cols-12">
             <div class="mr-auto place-self-center  lg:col-span-7">
                 <h1
-                    class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-blue-700">
+                    class="max-w-xl mx-auto mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-blue-700">
                     Find your dream job.
                 </h1>
                 <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-blue-800">
                     
                 </p>
 
-            
-                    <form class="max-w-md mx-auto" action="{{ route('listing.search') }}" method="GET">
+                <form class="max-w-md mx-auto" action="{{ route('listing.search') }}" method="GET">
                         <label for="default-search"
                             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">

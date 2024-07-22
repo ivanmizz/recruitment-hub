@@ -25,7 +25,7 @@ Route::get('/', [ListingController::class, 'showFeaturedJobs'])->name('home');
 
 Route::get('/jobs', [ListingController::class, 'showAllJobs'])->name('jobs');
 Route::get('jobs/search', [ListingController::class, 'search'])->name('listing.search');
-Route::get('/jobs/{listing}/{title}', [ListingController::class, 'show'])->name('listing.showjob');
+Route::get('/jobs/{listing}/{title}', [ListingController::class, 'showjob'])->name('listing.showjob');
 
 
 Route::get('/companies', [CompanyController::class, 'showAllCompanies'])->name('companies');
@@ -74,7 +74,7 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::post('/listing/store', [ListingController::class, 'store'])->name('listing.store');
 
     Route::get('/listing/create', [ListingController::class, 'create'])->name('listing.create');
-    Route::get('/listing/{listing}/show', [ListingController::class, 'show'])->name('listing.show');
+    Route::get('/listing/{listing}', [ListingController::class, 'show'])->name('listing.show');
 
 
     Route::get('/listing/{listing}/edit', [ListingController::class, 'edit'])->name('listing.edit');

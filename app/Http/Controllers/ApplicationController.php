@@ -55,7 +55,7 @@ class ApplicationController extends Controller
         $application->message = $request->message;
         $application->status = $request->status;
         $application->cover_letter = $request->cover_letter;
-        $application->listing_id = $request->company;
+        $application->listing_id = $application->listing->id;
        
         if (Auth::check()) {
             $application->user_id = Auth::id();
