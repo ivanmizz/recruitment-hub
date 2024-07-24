@@ -93,6 +93,8 @@ Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 Route::resource('company', CompanyController::class)->middleware(['auth', 'recruiter']);
 Route::resource('listing', ListingController::class)->middleware(['auth', 'recruiter']);
+Route::resource('application', ApplicationController::class);
+
 
 
 require __DIR__ . '/auth.php';
