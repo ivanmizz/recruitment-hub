@@ -35,7 +35,10 @@ Route::get('company/search', [CompanyController::class, 'search'])->name('compan
 // CANDIDATE ROUTES
 Route::get('/applications', [ApplicationController::class, 'showMyApplication'])->name('application.showMyApplication');
 Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('application.show');
-Route::post('/applications', [ApplicationController::class, 'store'])->name('application.store');
+Route::post('/application/store', [ApplicationController::class, 'store'])->name('application.store');
+Route::patch('/applications/{applications}', [ApplicationController::class, 'update'])->name('application.update');
+
+
 
 
 

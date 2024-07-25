@@ -96,7 +96,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-4 mb-4 grid-cols-2">
-                        @guest
+                       
                         <div class="col-span-2">
                             <label for="candidate_name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
@@ -113,12 +113,12 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 required="" placeholder="yourname@gmail.com">
                         </div>
-                        @endguest
+                     
 
                         <div class="col-span-2 ">
                             <label for="candidate_phone"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                            <input type="number" name="candidate_phone" id="candidate_phone" 
+                            <input type="text" name="candidate_phone" id="candidate_phone" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 required="" placeholder="07XXYYYZZZ" pattern="[0-9]{10}">
                         </div>
@@ -141,6 +141,9 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Andika cover letter hapa " required></textarea>
                         </div>
+
+                        <input type="hidden" name="status" value="received">
+                        <input type="hidden" name="listing" value="{{ $listing->id }}">
                         
                     </div>
                     <button type="submit"
