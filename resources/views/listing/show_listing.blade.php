@@ -98,7 +98,7 @@
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         @guest
                         <div class="col-span-2">
-                            <label for="name"
+                            <label for="candidate_name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                                 Name</label>
                             <input type="text" name="candidate_name" id="candidate_name"
@@ -106,10 +106,8 @@
                                 placeholder="" required>
                         </div>
                        
-                        
-
                         <div class="col-span-2 ">
-                            <label for="email"
+                            <label for="candidate_email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" name="candidate_email" id="candidate_email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -118,11 +116,11 @@
                         @endguest
 
                         <div class="col-span-2 ">
-                            <label for="phone"
+                            <label for="candidate_phone"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                            <input type="number" name="candidate_phone" id="candidate_phone"
+                            <input type="number" name="candidate_phone" id="candidate_phone" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="" placeholder="07XXYYYZZZ">
+                                required="" placeholder="07XXYYYZZZ" pattern="[0-9]{10}">
                         </div>
 
                         <div class="col-span-2">
@@ -131,7 +129,7 @@
                                 for="file_input">Upload your resume</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="resume" name="resume" type="file" accept=".pdf" />
+                                id="resume" name="resume" type="file" accept=".pdf" required/>
 
                         </div>
 
@@ -147,7 +145,7 @@
                     </div>
                     <button type="submit"
                         class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Apply 
+                        Submit 
                     </button>
                 </form>
 

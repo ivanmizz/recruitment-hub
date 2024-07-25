@@ -21,7 +21,7 @@ class ApplicationController extends Controller
     {
         $listings = Listing::where('user_id', Auth::id())->paginate(10);
         $applications = Application::where('listing_id->user_id', Auth::id())->get();
-        return view('recruiter.listing', compact('listings', 'applications'));
+        return view('recruiter.applications', compact('listings', 'applications'));
     }
 
     /**
@@ -53,11 +53,19 @@ class ApplicationController extends Controller
 
         $application = new Application;
         $application->candidate_phone = $request->candidate_phone;
-        $application->resume = $request->resume;
         $application->message = $request->message;
         $application->status = $request->status;
         $application->cover_letter = $request->cover_letter;
         $application->listing_id = $listing->id;
+
+        if ($request->hasFile('resume')) {
+            if ($application->resume) {
+                Storage::disk('public')->delete($application->resume);
+            }
+
+            $filePath = $request->file('logo')->store('resume_docs', 'public');
+            $application->resume = $filePath;
+        }
 
         if (Auth::check()) {
             $application->user_id = Auth::id();
