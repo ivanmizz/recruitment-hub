@@ -20,9 +20,33 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $listings = Listing::where('user_id', Auth::id())->paginate(10);
-        $applications = Application::where('listing_id->user_id', Auth::id())->get();
-        return view('recruiter.applications', compact('listings', 'applications'));
+        $userId = Auth::id();
+        $applications = Application::whereHas('listing',
+        function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->paginate(10);
+        return view('recruiter.applications', compact('applications'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Validate the search query
+        $request->validate([
+            'query' => 'required|min:2'
+        ]);
+
+        // Search applicatoin by candidate name, listing title, status or message
+        $applications = Application::where('candidate_name', 'LIKE', "%$query%")
+             ->orWhere('status', 'LIKE', "%$query%")
+             ->orWhere('message', 'LIKE', "%$query%")
+             ->orWhereHas('listing', function ($q) use ($query) {
+                $q->where('title', 'LIKE', "%$query%");
+            })->paginate(5);
+
+        // Pass the search query and results to the view
+        return view('recruiter.applications', compact('applications', 'query'));
     }
 
     /**
@@ -134,6 +158,7 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+        $application->delete();
+        return redirect()->back()->with('success', 'Listing deleted successfully.');
     }
 }

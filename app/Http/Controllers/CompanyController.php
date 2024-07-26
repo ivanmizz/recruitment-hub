@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class CompanyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the companies for the recruiter.
      */
     public function index()
     {
@@ -36,7 +36,7 @@ class CompanyController extends Controller
         // Search companies by name, location, or category
         $companies = Company::where('name', 'LIKE', "%$query%")
              ->orWhere('location', 'LIKE', "%$query%")
-             ->orWhereHas('categories', function ($q) use ($query) {
+             ->orWhereHas('category', function ($q) use ($query) {
                 $q->where('name', 'LIKE', "%$query%");
             }) ->paginate(4);
 

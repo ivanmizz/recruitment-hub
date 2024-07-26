@@ -8,7 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\UserController;
- 
+
 
 
 // // Laravel starter home page
@@ -58,7 +58,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::patch('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
     Route::get('/admin/companies', [CompanyController::class, 'showCompanies'])->name('admin.company');
-
 });
 
 
@@ -71,7 +70,7 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/company/{company}/edit', [CompanyController::class, 'edit'])->name('company.edit');
     Route::get('/company/{company}/destroy', [CompanyController::class, 'destroy'])->name('company.destroy');
 
-    
+
     Route::get('/listing', [ListingController::class, 'index'])->name('listing.index');
     Route::get('/listing', [ListingController::class, 'create'])->name('listing.create');
     Route::post('/listing/store', [ListingController::class, 'store'])->name('listing.store');
@@ -88,6 +87,7 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
     Route::get('/applications/{application}', [ApplicationController::class, 'update'])->name('application.destroy');
     Route::get('/applications/{application}', [ApplicationController::class, 'destroy'])->name('application.destroy');
 
+    Route::get('application/search', [ApplicationController::class, 'search'])->name('application.search');
 });
 
 
