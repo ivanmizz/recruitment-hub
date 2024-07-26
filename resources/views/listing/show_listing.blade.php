@@ -4,6 +4,42 @@
 
         @include('listing.navbar')
 
+        @if (session('success'))
+            <div id="success-message"
+                class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                role="alert">
+                <div
+                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ms-3 text-sm font-normal">
+                    {{ session('success') }}
+                </div>
+
+            </div>
+
+            @guest
+                <div id="success-message"
+                    class="flex items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
+                    role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div class="ms-3 text-sm font-normal">
+                        Register with your submitted email to view your application
+                    </div>
+                </div>
+            @endguest
+        @endif
+
         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 p-4 ">
 
             <div
@@ -18,8 +54,8 @@
                         <div
                             class="flex size-12 shrink-0 items-center justify-center rounded-lg  mr-2 bg-[#FF2D20]/10 sm:size-16">
                             @if ($listing->company->logo)
-                                <img src="{{ Storage::url($listing->company->logo) }}" alt="{{ $listing->company->name }}"
-                                    class="rounded-lg object-cover w-16 h-16">
+                                <img src="{{ Storage::url($listing->company->logo) }}"
+                                    alt="{{ $listing->company->name }}" class="rounded-lg object-cover w-16 h-16">
                             @endif
                         </div>
                         <div>
@@ -96,29 +132,35 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-4 mb-4 grid-cols-2">
-                       
-                        <div class="col-span-2">
-                            <label for="candidate_name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                                Name</label>
-                            <input type="text" name="candidate_name" id="candidate_name"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="" required>
-                        </div>
-                       
-                        <div class="col-span-2 ">
-                            <label for="candidate_email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" name="candidate_email" id="candidate_email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="" placeholder="yourname@gmail.com">
-                        </div>
-                     
+                        @guest
+                            <div class="col-span-2">
+                                <label for="candidate_name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                                    Name</label>
+                                <input type="text" name="candidate_name" id="candidate_name"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="" required>
+                            </div>
+
+                            <div class="col-span-2 ">
+                                <label for="candidate_email"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="email" name="candidate_email" id="candidate_email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required="" placeholder="yourname@gmail.com">
+                            </div>
+                        @endguest
+
+                        @auth
+                            <input type="hidden" name="candidate_name" value="{{ auth()->user()->name }}">
+                            <input type="hidden" name="candidate_email" value="{{ auth()->user()->email }}">
+                        @endauth
 
                         <div class="col-span-2 ">
                             <label for="candidate_phone"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                            <input type="text" name="candidate_phone" id="candidate_phone" 
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+                                number</label>
+                            <input type="text" name="candidate_phone" id="candidate_phone"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 required="" placeholder="07XXYYYZZZ" pattern="[0-9]{10}">
                         </div>
@@ -129,7 +171,7 @@
                                 for="file_input">Upload your resume</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="resume" name="resume" type="file" accept=".pdf" required/>
+                                id="resume" name="resume" type="file" accept=".pdf" required />
 
                         </div>
 
@@ -144,17 +186,28 @@
 
                         <input type="hidden" name="status" value="received">
                         <input type="hidden" name="listing" value="{{ $listing->id }}">
-                        
+
                     </div>
                     <button type="submit"
                         class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Submit 
+                        Submit
                     </button>
                 </form>
 
             </div>
         </div>
 
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const successMessage = document.getElementById("success-message");
+
+                if (successMessage) {
+                    setTimeout(function() {
+                        successMessage.style.display = "none";
+                    }, 5000); // Hide the message after 5 seconds (5000 milliseconds)
+                }
+            });
+        </script>
 
 
 </x-base-layout>
