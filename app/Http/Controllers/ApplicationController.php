@@ -144,6 +144,7 @@ class ApplicationController extends Controller
         $application->status = $validated['status'];
         $application->message = $validated['message'];
 
+
         if(auth()->user()->usertype == 'cnd') 
         {
             $application->user_id = Auth::id();
