@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Listing;
 use App\Models\User;
 
+use App\Events\ApplicationSent;
+use App\Events\ApplicationStatusUpdated;
 class Application extends Model
 {
     use HasFactory;
@@ -21,6 +23,12 @@ class Application extends Model
         'candidate_name',
         'candidate_email',
         'candidate_phone',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ApplicationSent::class,
+        'updated' => ApplicationStatusUpdated::class,
+
     ];
 
     public function listing() 

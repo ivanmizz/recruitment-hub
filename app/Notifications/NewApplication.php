@@ -6,9 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+
 use App\Models\Application;
 
-class ApplicationStatusResponse extends Notification
+class ApplicationSent extends Notification
 {
     use Queueable;
 
@@ -36,9 +37,12 @@ class ApplicationStatusResponse extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->subject('New application.')
+                    ->greeting('New application from {$this->application->candidate_name}')
+                    ->line('Application for the {$this->application->listing->title} job')
+                    ->action('View', url('/'))
                     ->line('Thank you for using our application!');
+                    
     }
 
     /**

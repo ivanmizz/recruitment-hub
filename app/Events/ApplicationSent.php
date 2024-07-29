@@ -10,6 +10,9 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+use App\Models\Application;
+
+
 class ApplicationSent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -17,7 +20,7 @@ class ApplicationSent
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(public Application $application)
     {
         //
     }
