@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 
 use App\Models\Application;
 
-class ApplicationSent extends Notification
+class NewApplication extends Notification
 {
     use Queueable;
 

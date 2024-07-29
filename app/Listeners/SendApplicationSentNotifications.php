@@ -5,6 +5,8 @@ namespace App\Listeners;
 use App\Events\ApplicationSent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Models\User;
+use App\Notifications\NewApplication;
 
 class SendApplicationSentNotifications
 {
@@ -21,6 +23,8 @@ class SendApplicationSentNotifications
      */
     public function handle(ApplicationSent $event): void
     {
-        //
+        foreach (User::where('id', $event->application->listing->user_id)->cursor() as $user) {
+            $user->notify(new NewApplication($event->application));
+        }
     }
 }

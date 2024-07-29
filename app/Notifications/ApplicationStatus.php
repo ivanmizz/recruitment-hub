@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Application;
 
-class ApplicationStatusResponse extends Notification
+class ApplicationStatus extends Notification
 {
     use Queueable;
 
