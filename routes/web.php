@@ -33,8 +33,8 @@ Route::get('company/search', [CompanyController::class, 'search'])->name('compan
 
 
 // CANDIDATE ROUTES
-Route::get('/applications', [ApplicationController::class, 'showMyApplication'])->name('application.showMyApplication');
-Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('application.show');
+Route::get('/myapplications', [ApplicationController::class, 'showMyApplications'])->name('application.showMyApplications');
+Route::get('/applications/{applications}', [ApplicationController::class, 'show'])->name('application.show');
 Route::post('/application/store', [ApplicationController::class, 'store'])->name('application.store');
 Route::patch('/applications/{applications}', [ApplicationController::class, 'update'])->name('application.update');
 

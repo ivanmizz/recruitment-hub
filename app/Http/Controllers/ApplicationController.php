@@ -123,6 +123,12 @@ class ApplicationController extends Controller
         return view('candidate.application', compact('applications'));
     }
 
+    public function showMyApplications()
+    {
+        $applications = Application::where('candidate_email', 'user->email')->orWhere('user_id', Auth::id())->get();
+        return view('candidate.application', compact('applications'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
