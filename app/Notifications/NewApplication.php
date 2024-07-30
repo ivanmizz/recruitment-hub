@@ -38,9 +38,9 @@ class NewApplication extends Notification
     {
         return (new MailMessage)
                     ->subject('New application.')
-                    ->greeting('New application from {$this->application->candidate_name}')
-                    ->line('Application for the {$this->application->listing->title} job')
-                    ->action('View', url('/'))
+                    ->greeting("New application from {$this->application->candidate_name}")
+                    ->line("Application for the {$this->application->listing->title} job")
+                    ->action('View', url('/application'))
                     ->line('Thank you for using our application!');
                     
     }

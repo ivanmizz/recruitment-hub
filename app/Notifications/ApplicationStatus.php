@@ -36,10 +36,10 @@ class ApplicationStatus extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('{$this->application->listing->title} application feedback')
-            ->greeting('Your application has been {$this->application->status}')
-            ->line(' {$this->application->message}')
-            ->action('Notification Action', url('/'))
+            ->subject("{$this->application->listing->title} application feedback")
+            ->greeting("Your application has been {$this->application->status}")
+            ->line("{$this->application->message}")
+            ->action('View', url('/login'))
             ->line('Thank you and all the best!');
     }
 
