@@ -36,7 +36,7 @@
                     <span class="sr-only">Check icon</span>
                 </div>
                 <div class="ms-3 text-sm font-normal">{{ session('success') }}</div>
-                
+
             </div>
         @endif
 
@@ -64,9 +64,30 @@
                         <td class="px-6 py-4">{{ $application->candidate_email }}</td>
                         <td class="px-6 py-4">{{ $application->candidate_phone }}</td>
                         <td class="px-6 py-4">{{ $application->cover_letter }}</td>
-                        <td class="px-6 py-4">{{ $application->status }}</td>
+                        <td class="px-6 py-4">
+                            @if ($application->status == 'received')
+                                <span
+                                    class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Received</span>
+                            @elseif ($application->status == 'reviewed')
+                                <span
+                                    class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Reviewed</span>
+                            @elseif ($application->status == 'shortlisted')
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Shortlisted</span>
+                            @endif
+                        </td>
+
                         <td class="px-6 py-4">{{ $application->message }}</td>
-                        <td class="px-6 py-4">{{ $application->resume }}</td>
+                        <td class="px-6 py-4">
+                            @if ($application->resume)
+                                <a href="{{ Storage::url($application->resume) }}" target="_blank"
+                                    class="text-blue-600 underline">
+                                    View Resume
+                                </a>
+                            @else
+                                No Resume Uploaded
+                            @endif
+                        </td>
                         <td class="px-6 py-4">
                             <button data-modal-target="update-modal-{{ $application->id }}"
                                 data-modal-toggle="update-modal-{{ $application->id }}"
@@ -96,7 +117,7 @@
                         <div
                             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Update {{$application->candidate_name}} application details
+                                Update {{ $application->candidate_name }} application details
                             </h3>
                             <button type="button"
                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -121,11 +142,20 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                         Status
                                     </label>
-                                    <select id="status" name="status" value="{{$application->status}}"
+                                    <select id="status" name="status"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option id="status" name="status" value="received">Received</option>
-                                        <option id="status" name="status" value="reviewed">Reviewed</option>
-                                        <option id="status" name="status" value="shortlisted">Shortlisted</option>
+                                        <option value="received"
+                                            {{ $application->status == 'received' ? 'selected' : '' }}>
+                                            Received
+                                        </option>
+                                        <option value="reviewed"
+                                            {{ $application->status == 'reviewed' ? 'selected' : '' }}>
+                                            Reviewed
+                                        </option>
+                                        <option value="shortlisted"
+                                            {{ $application->status == 'shortlisted' ? 'selected' : '' }}>
+                                            Shortlisted
+                                        </option>
                                     </select>
                                 </div>
 
