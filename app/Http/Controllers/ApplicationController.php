@@ -125,7 +125,15 @@ class ApplicationController extends Controller
 
     public function showMyApplications()
     {
-        $applications = Application::where('candidate_email', 'user->email')->orWhere('user_id', Auth::id())->get();
+        $user = Auth::user();
+        $email = $user->email;
+        $userId = $user->id;
+    
+        // Retrieve applications based on user's email or user ID
+        $applications = Application::where('candidate_email', $email)
+                                    ->orWhere('user_id', $userId)
+                                    ->get();
+    
         return view('candidate.application', compact('applications'));
     }
 
