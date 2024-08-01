@@ -71,13 +71,22 @@ Open new terminal to start frontend development server
  **Candidate** | user@gmail.com      | password2 |     
     
  ## Use any of the following test cards to simulate a payment:
+Payment succeeds:  
+```sh
+ 4242 4242 4242 4242
 
-Payment succeeds ```sh 4242 4242 4242 4242```  
-Payment requires authentication ```sh 4000 0025 0000 3155```  
-Payment is declined ```sh 4000 0000 0000 9995```
+``` 
+Payment requires authentication:  
+```sh
+ 4000 0025 0000 3155
 
+``` 
+Payment is declined:  
+```sh
+ 4000 0000 0000 9995
 
-
+``` 
+ 
 **Open in your browser**  
 ```
 http://localhost:8000
