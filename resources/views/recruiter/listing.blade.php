@@ -38,8 +38,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-4   gap-4 p-4 ">
 
-            
-              {{-- CARD WITH DROP DOWN --}}
+
+            {{-- CARD WITH DROP DOWN --}}
             @foreach ($listings as $listing)
                 <div
                     class="w-full max-w-sm m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -62,21 +62,24 @@
                                     <a href="{{ route('listing.show', ['listing' => $listing->id]) }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">View</a>
                                 </li>
+                                @if ($listing->job_type === 'free')
                                 <li>
                                     <a href="{{ route('listing.edit', ['listing' => $listing->id]) }}"
                                         class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
                     <div class="flex flex-col ml-3 pb-3">
                         <div class="flex mb-2 pb-3">
 
-                            <div class="flex size-12 shrink-0 items-center justify-center rounded-lg  mr-2 bg-[#FF2D20]/10 sm:size-16">
+                            <div
+                                class="flex size-12 shrink-0 items-center justify-center rounded-lg  mr-2 bg-[#FF2D20]/10 sm:size-16">
                                 @if ($listing->company->logo)
-                                <img src="{{ Storage::url($listing->company->logo) }}" alt="{{ $listing->company->name }}"
-                                    class="rounded-lg object-cover w-16 h-16">
-                            @endif
+                                    <img src="{{ Storage::url($listing->company->logo) }}"
+                                        alt="{{ $listing->company->name }}" class="rounded-lg object-cover w-16 h-16">
+                                @endif
                             </div>
                             <div>
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -97,21 +100,30 @@
                                     stroke-width="1.7"
                                     d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z" />
                             </svg>
-                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                {{$listing->location}} 
-                            </span>
-                            
-                            <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">
-                                {{$listing->contract_type}}
-                            </span>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                                {{$listing->job_type}} listing
+                            <span
+                                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                                {{ $listing->location }}
                             </span>
 
-                            
+                            <span
+                                class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">
+                                {{ $listing->contract_type }}
+                            </span>
+                            @if ($listing->job_type === 'premium')
+                                <svg class="w-5 h-5 text-rose-500" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                </svg>
+                                <span
+                                    class="bg-blue-100 border border-rose-500 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                                    {{ $listing->job_type }}
+                                </span>
+                            @endif
+
                         </div>
-                        
-                
+
+
                     </div>
                 </div>
             @endforeach

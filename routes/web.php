@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
 
 
 
@@ -81,6 +82,9 @@ Route::middleware(['auth', 'recruiter'])->group(function () {
 
     Route::get('/listing/{listing}/edit', [ListingController::class, 'edit'])->name('listing.edit');
     Route::patch('/listing/{listing}/edit', [ListingController::class, 'update'])->name('listing.update');
+
+    Route::get('/listing/{listing}/sponsor', [StripeController::class, 'showPaymentForm'])->name('listings.sponsor');
+    Route::post('/listing/sponsor', [StripeController::class, 'processPayment'])->name('listings.processPayment');
 
     Route::get('/applications', [ApplicationController::class, 'index'])->name('application.index');
     Route::get('/applications/{application}', [ApplicationController::class, 'showCandidateApplication'])->name('application.showCandidateApplication');

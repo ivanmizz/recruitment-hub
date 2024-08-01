@@ -23,7 +23,7 @@ class HomeController extends Controller
 
                
                 $companies = Company::where('user_id', Auth::id())->count();
-                $applications = Application::count();
+                $applications = Application::whereRelation('listing', 'user_id', Auth::id())->count();
                 $joblistings = Listing::where('user_id', Auth::id())->count();
                 return view('recruiter.home', compact('companies', 'applications', 'joblistings'));
 

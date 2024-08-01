@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @include('recruiter.sidebar')
+    @include('admin.sidebar')
     <div class="p-4 sm:ml-64">
 
         @if (session('success'))

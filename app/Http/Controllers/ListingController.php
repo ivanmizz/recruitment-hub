@@ -24,7 +24,7 @@ class ListingController extends Controller
         return view('recruiter.listing', compact('listings', 'companies', 'categories'));
     }
 
-   
+
     /**
      * Search for companies 
      */
@@ -39,8 +39,8 @@ class ListingController extends Controller
 
         // Search companies by name, location, or category
         $listings = Listing::where('title', 'LIKE', "%$query%")
-             ->orWhere('location', 'LIKE', "%$query%")
-             ->orWhereHas('categories', function ($q) use ($query) {
+            ->orWhere('location', 'LIKE', "%$query%")
+            ->orWhereHas('categories', function ($q) use ($query) {
                 $q->where('name', 'LIKE', "%$query%");
             })->paginate(4);
 
@@ -56,7 +56,7 @@ class ListingController extends Controller
         //$listings = Listing::all();
         $categories = Category::all();
         $companies = Company::where('user_id', Auth::id())->get();
-        return view('recruiter.create_listing', compact('categories','companies'));
+        return view('recruiter.create_listing', compact('categories', 'companies'));
     }
 
     /**
@@ -64,7 +64,7 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
@@ -104,7 +104,7 @@ class ListingController extends Controller
         $listings = Listing::all();
         $categories = Category::all();
         $companies = Company::where('user_id', Auth::id())->get();
-        return view('recruiter.show_listing', compact( 'listings', 'listing', 'companies', 'categories'));
+        return view('recruiter.show_listing', compact('listings', 'listing', 'companies', 'categories'));
     }
 
     public function showjob(Listing $listing)
@@ -113,17 +113,25 @@ class ListingController extends Controller
         $listings = Listing::all();
         $categories = Category::all();
         $companies = Company::where('user_id', Auth::id())->get();
-        return view('listing.show_listing', compact( 'listings', 'listing', 'companies', 'categories'));
+        return view('listing.show_listing', compact('listings', 'listing', 'companies', 'categories'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     */ public function edit(Listing $listing)
+     * 
+     */
+
+    public function edit(Listing $listing)
     {
-        $listings = Listing::all();
-        $categories = Category::all();
-        $companies = Company::where('user_id', Auth::id())->get();
-        return view('recruiter.edit_listing', compact( 'listings', 'listing', 'companies', 'categories'));
+        // Only free listings can be edited to prevent sponsoring many jobs through editing
+        if ($listing->job_type === 'free') {
+            $listings = Listing::all();
+            $categories = Category::all();
+            $companies = Company::where('user_id', Auth::id())->get();
+            return view('recruiter.edit_listing', compact('listings', 'listing', 'companies', 'categories'));
+        } else {
+            return redirect()->back();
+        }
     }
 
 
@@ -156,7 +164,7 @@ class ListingController extends Controller
         $listing->due_date = Carbon::createFromFormat('d/m/Y', $validatedData['due_date'])->format('Y-m-d');
         $listing->company_id = $validatedData['company'];
         $listing->category_id = $validatedData['category'];
-       
+
 
         $listing->save();
         return redirect()->route('listing.index')->with('success', 'Listing details updated successfully.');
@@ -171,12 +179,12 @@ class ListingController extends Controller
         return redirect()->route('listing.index')->with('success', 'Listing deleted successfully.');
     }
 
-     // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
-     public function showAllJobs() 
-     {
-         $listings = Listing::latest()->paginate(4);
-         return view('listing.jobs', compact('listings'));
-     }
+    // DISPLAY JOBS LISTINGS FOR THE CANDIDATE
+    public function showAllJobs()
+    {
+        $listings = Listing::latest()->paginate(4);
+        return view('listing.jobs', compact('listings'));
+    }
 
     public function showFeaturedJobs()
     {

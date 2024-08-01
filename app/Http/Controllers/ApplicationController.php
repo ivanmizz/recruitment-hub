@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Log;
-
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Models\Listing;
