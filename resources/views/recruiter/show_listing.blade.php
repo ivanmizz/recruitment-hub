@@ -19,10 +19,18 @@
 
             @if ($listing->job_type === 'free')
                 <!-- Button to sponsor the listing -->
+
                 <button data-modal-target="static-modal" data-modal-toggle="static-modal"
                     class="block text-black dark:text-white border border-blue-500 hover:border-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center max-w-xs"
                     type="button">
-                    Sponsor this listing
+                    <div class="flex flex-row">
+                        <span class="mr-2"> Sponsor this listing for more visibility</span>
+                        <span class="relative flex h-3 w-3">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                        </span>
+                    </div>
                 </button>
             @elseif ($listing->job_type === 'premium')
                 <!-- Text and SVG for sponsored listing -->
@@ -145,8 +153,8 @@
                         <span class="sr-only">Close</span>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
                     </button>
                 </div>
@@ -182,11 +190,8 @@
                 </div>
             @endif
 
-
-
-
             <div
-                class="w-screen max-w-2xl mt-14  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+                class=" max-w-2xl mt-14  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
                 <div class="flex justify-end px-4 pt-4">
 
                 </div>

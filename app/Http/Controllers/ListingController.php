@@ -188,8 +188,8 @@ class ListingController extends Controller
 
     public function showFeaturedJobs()
     {
-        //$listings = Listing::where('job_type', 'premium');
-        $listings = Listing::latest();
+        //$listings = Listing::where('job_type', 'premium')->latest();
+        $listings = Listing::latest()->take(10)->get();
         return view('listing.home', compact('listings'));
     }
 }
